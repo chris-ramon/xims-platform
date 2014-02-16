@@ -1,4 +1,5 @@
 Xims::Application.routes.draw do
+  devise_for :users
   get '/:organization_id/employees' => 'employees#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
