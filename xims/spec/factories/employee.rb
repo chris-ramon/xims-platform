@@ -1,12 +1,10 @@
 FactoryGirl.define do
-  sequence(:first_name) { |n| "first_name #{n}" }
-
   factory :organization do
     name 'organization abc'
   end
 
   factory :individual do
-    sequence(:id_number) { |n| "#{n}0000000" }
+    sequence(:id_number) { |n| "#{n}0000000".to_i }
     sequence(:first_name) { |n| "first_name #{n}" }
     sequence(:middle_name) { |n| "middle_name #{n}" }
     sequence(:last_name) { |n| "last_name #{n}" }
