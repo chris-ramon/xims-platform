@@ -37,13 +37,16 @@ describe TrainingsController do
         abc_organization = create(:organization)
         @chris_as_employee = create(:employee, organization: abc_organization)
         chris_as_user = create(:user, employee: @chris_as_employee)
-        @induction_training = create(:training, organization: abc_organization)
+        @induction_training = create(:training, topic: 'company induction',
+                                     organization: abc_organization)
         sign_in chris_as_user
       end
       describe 'logged user and training have same organization' do
         it 'succeeds' do
           xhr :get, :show, training_id: @induction_training.id
+          parsed = JSON(response.body)
           response.should be_success
+          parsed['topic'].should == 'company induction'
         end
       end
 
