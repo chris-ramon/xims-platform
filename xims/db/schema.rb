@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140214150459) do
+ActiveRecord::Schema.define(version: 20140217194810) do
 
   create_table "employees", force: true do |t|
     t.integer  "organization_id", null: false
@@ -23,10 +23,11 @@ ActiveRecord::Schema.define(version: 20140214150459) do
   end
 
   create_table "individuals", force: true do |t|
-    t.integer  "id_number",   null: false
-    t.string   "first_name",  null: false
-    t.string   "middle_name", null: false
-    t.string   "last_name",   null: false
+    t.integer  "id_number",        null: false
+    t.string   "first_name",       null: false
+    t.string   "middle_name"
+    t.string   "last_name",        null: false
+    t.string   "second_last_name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,6 +38,26 @@ ActiveRecord::Schema.define(version: 20140214150459) do
 
   create_table "organizations", force: true do |t|
     t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "training_employees", force: true do |t|
+    t.integer  "training_id",  null: false
+    t.integer  "employee_id",  null: false
+    t.text     "observations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trainings", force: true do |t|
+    t.integer  "organization_id", null: false
+    t.integer  "responsible_id"
+    t.integer  "trainer_id",      null: false
+    t.integer  "training_type",   null: false
+    t.datetime "training_date",   null: false
+    t.integer  "training_hours",  null: false
+    t.string   "topic",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
