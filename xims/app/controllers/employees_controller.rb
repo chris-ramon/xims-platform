@@ -2,21 +2,24 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    params.permit(:organization_id)
     params.permit(:page)
 
-    params.require(:organization_id)
-
-    finder = Employee.where(organization_id: params[:organization_id])
+    finder = Employee
+      .where(organization_id: params[:organization_id])
+      .page(params[:page])
     employee = finder.first
     guardian.ensure_can_see!(employee)
-
-    if finder.present?
-      finder = finder.page params[:page]
-      render json: {data: finder, metadata: {page: params[:page]}}
-    else
-      render json: {data: finder, metadata: {}}
-    end
+    render json: {data: finder, metadata: {page: params[:page], total_pages: finder.total_pages}}
   end
 
+  def show
+    employee = Employee.where(id: params[:employee_id]).first
+    guardian.ensure_can_see!(employee)
+
+    if employee.present?
+      render json: employee
+    else
+      render json: error_json, status: :not_found
+    end
+  end
 end

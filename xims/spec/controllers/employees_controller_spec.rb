@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe EmployeesController do
 
-  describe 'show' do
+  describe 'index' do
     it "won't allow see the list of employees when user is not logged in" do
       xhr :get, :index, organization_id: 1
       response.should_not be_success
@@ -61,7 +61,41 @@ describe EmployeesController do
           response.should be_success
           parsed = JSON(response.body)
           parsed['metadata']['page'].should == page.to_s
+          parsed['metadata']['total_pages'].should == (Employee.all.page(1)).total_pages
           parsed['data'].length.should == @extra_total_per_page + 1 # + 1 because we are creating one employee within before
+        end
+      end
+    end
+  end
+
+  describe 'show' do
+    it "won't allow see employee if not logged in" do
+      xhr :get, :show, organization_id: 1, employee_id: 1
+      response.should_not be_success
+    end
+
+    describe 'when logged in' do
+      before do
+        @organization = create(:organization)
+
+        @chris_as_employee = create(:employee, organization: @organization)
+        roger_as_employee = create(:employee, organization: @organization)
+
+        roger_as_user = create(:user_with_employee, employee: roger_as_employee)
+        sign_in roger_as_user
+      end
+      describe 'user does not belong to the organization' do
+        it 'fails' do
+          @chris_as_employee.organization = create(:organization)
+          @chris_as_employee.save
+          xhr :get, :show, employee_id: @chris_as_employee.id
+          response.should_not be_success
+        end
+      end
+      describe 'user belongs to the organization' do
+        it 'succeed' do
+          xhr :get, :show, employee_id: @chris_as_employee.id
+          response.should be_success
         end
       end
     end
