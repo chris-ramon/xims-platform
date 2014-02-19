@@ -24,6 +24,27 @@ describe Guardian do
       end
     end
   end
+
+  describe 'can_create?' do
+    describe 'a Training' do
+      describe 'when user belongs to the organization passed' do
+        it 'is true' do
+          abc_organization = create(:organization)
+          chris_as_employee = create(:employee, organization: abc_organization)
+          chris_as_user = create(:user, employee: chris_as_employee)
+          Guardian.new(chris_as_user).can_create?(Training, abc_organization).should == true
+        end
+      end
+      describe 'when user DOES NOT belong to the organization passed' do
+        it 'is false' do
+          abc_organization = create(:organization)
+          chris_as_user = create(:user_with_employee)
+          Guardian.new(chris_as_user).can_create?(Training, abc_organization).should == false
+        end
+      end
+    end
+  end
+
   describe 'EnsureMagic!' do
     it 'calls the correct method and not raises exception' do
       user = create(:user)

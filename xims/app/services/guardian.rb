@@ -17,21 +17,13 @@ class Guardian
 
     return send(create_method, parent) if respond_to?(create_method)
 
-    true
+    false
   end
-
-  #def can_create_post?(klass)
-  #  @user.status == User::STATUS[:active]
-  #end
-  #
-  #def can_create_upload_on_post?(post)
-  #  post.created_by_id == @user.id
-  #end
 
   def can_see?(obj)
     if obj
       see_method = method_name_for :see, obj
-      (see_method ? send(see_method, obj) : true)
+      (see_method ? send(see_method, obj) : false)
     end
   end
 
@@ -42,5 +34,13 @@ class Guardian
 
   def can_see_employee?(employee)
     @user.employee.organization_id == employee.organization_id
+  end
+
+  def can_see_training?(training)
+    @user.employee.organization_id == training.organization_id
+  end
+
+  def can_create_training_on_organization?(organization)
+    @user.employee.organization_id == organization.id
   end
 end
