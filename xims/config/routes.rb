@@ -1,6 +1,11 @@
 Xims::Application.routes.draw do
   devise_for :users
-  get '/:organization_id/employees' => 'employees#index'
+  get '/:organization_id/employees', to: 'employees#index'
+  get '/employees/:employee_id', to: 'employees#show'
+
+  get '/:organization_id/trainings', to: 'trainings#index'
+  post '/:organization_id/trainings', to: 'trainings#create'
+  get '/trainings/:training_id', to: 'trainings#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
