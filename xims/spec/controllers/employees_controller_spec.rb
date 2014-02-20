@@ -29,17 +29,15 @@ describe EmployeesController do
         it 'succeeds' do
           xhr :get, :index, organization_id: @abc_organization.id
           response.should be_success
-          parsed = JSON.parse(response.body)
-          parsed['data'].length.should == 4
         end
         it 'returns employees only for the given organization' do
           other_organization = create(:organization)
           3.times { create(:employee, organization: other_organization) }
-
           xhr :get, :index, organization_id: @abc_organization.id
           response.should be_success
           parsed = JSON.parse(response.body)
-          parsed['data'].length.should == 4
+          parsed['data'].length.should == 1
+          parsed['metadata']['total_pages'].should == 4
         end
       end
       describe 'pagination' do
@@ -56,13 +54,10 @@ describe EmployeesController do
           sign_in user
         end
         it 'returns the given page' do
-          page = 2
-          xhr :get, :index, organization_id: @organization.id, page: page
+          xhr :get, :index, organization_id: @organization.id, page: 2
           response.should be_success
           parsed = JSON(response.body)
-          parsed['metadata']['page'].should == page.to_s
-          parsed['metadata']['total_pages'].should == (Employee.all.page(1)).total_pages
-          parsed['data'].length.should == @extra_total_per_page + 1 # + 1 because we are creating one employee within before
+          parsed['metadata']['page'].should == 2
         end
       end
     end

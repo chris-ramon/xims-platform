@@ -9,7 +9,10 @@ class EmployeesController < ApplicationController
       .page(params[:page])
     employee = finder.first
     guardian.ensure_can_see!(employee)
-    render json: {data: finder, metadata: {page: params[:page], total_pages: finder.total_pages}}
+    metadata = {page: params[:page].to_i,
+                total_pages: finder.total_pages.to_i}
+    render json: {data: finder,
+                  metadata: metadata}
   end
 
   def show
