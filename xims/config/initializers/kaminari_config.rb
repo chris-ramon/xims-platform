@@ -1,5 +1,9 @@
 Kaminari.configure do |config|
-  config.default_per_page = 10
+  if Rails.env.test?
+    config.default_per_page = 1
+  else
+    config.default_per_page = 10
+  end
   # config.max_per_page = nil
   # config.window = 4
   # config.outer_window = 0
