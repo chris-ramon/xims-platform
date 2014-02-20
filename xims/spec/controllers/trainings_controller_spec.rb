@@ -23,9 +23,9 @@ describe TrainingsController do
         it 'succeeds' do
           xhr :get, :index, organization_id: @organization.id, page: 1
           parsed = JSON(response.body)
-          parsed['data'].length.should == @total_trainings
+          parsed['data'].length.should == 1
           parsed['metadata']['page'].should == 1
-          parsed['metadata']['total_pages'].should == 1
+          parsed['metadata']['total_pages'].should == @total_trainings
         end
       end
     end
