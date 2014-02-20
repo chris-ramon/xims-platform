@@ -26,7 +26,7 @@ describe Guardian do
   end
 
   describe 'can_create?' do
-    describe 'a Training' do
+    describe 'a Training on Organization' do
       describe 'when user belongs to the organization passed' do
         it 'is true' do
           abc_organization = create(:organization)
