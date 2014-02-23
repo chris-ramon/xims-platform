@@ -1,0 +1,154 @@
+<!-- HEADER -->
+<div class="row">
+    <h3 class="col-xs-2 content-title">Capacitaciones</h3>
+    <div class="col-xs-10">
+        <div class="pull-right btn-group">
+            <a href="#/capacitaciones/nuevo" class="btn btn-primary">Nueva capacitación</a>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a>Importar Capacitaciones</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END HEADER -->
+
+<!-- QUICK FILTERING -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table moneyBar" id="uniqName_46_2" widgetid="uniqName_46_2">
+      <div class="tableRow" data-dojo-attach-point="_tableBarRow">
+        <div class="col-xs-4 tableCell">
+          <div class="bucket unbilled_tab" id="dijit__WidgetsInTemplateMixin_7" widgetid="dijit__WidgetsInTemplateMixin_7">
+            <div class="header" data-dojo-attach-point="_label">Última semana</div>
+            <div class="table">
+              <div class="tableRow" data-dojo-attach-point="_bucketBarRow"><div class="tableCell"><div class="box estimates" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_7" widgetid="uniqName_45_7">
+                <div class="subbox">
+                  <span class="amount" data-dojo-attach-point="_amount">5 capacitaciones</span>&nbsp;
+                  <div>
+                    <span data-dojo-attach-point="_label">en la última semana</span>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 tableCell">
+          <div class="bucket unpaid_tab" id="dijit__WidgetsInTemplateMixin_8" widgetid="dijit__WidgetsInTemplateMixin_8">
+            <div class="header" data-dojo-attach-point="_label">Últimos 15 días</div>
+            <div class="table">
+          <div class="tableRow" data-dojo-attach-point="_bucketBarRow"><div class="tableCell"><div class="box unpaid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_8" widgetid="uniqName_45_8">
+            <div class="subbox">
+              <span class="amount" data-dojo-attach-point="_amount">10 capacitaciones</span>&nbsp;
+              <div>
+                <span data-dojo-attach-point="_label">en los últimos 15 días</span>
+              </div>
+            </div>
+            </div></div></div>
+        </div>
+          </div>
+        </div>
+        <div class="col-xs-4 tableCell">
+          <div class="bucket paid_tab" id="dijit__WidgetsInTemplateMixin_9" widgetid="dijit__WidgetsInTemplateMixin_9">
+        <div class="header" data-dojo-attach-point="_label">Último mes</div>
+        <div class="table">
+          <div class="tableRow" data-dojo-attach-point="_bucketBarRow"><div class="tableCell"><div class="box paid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_10" widgetid="uniqName_45_10">
+            <div class="subbox">
+              <span class="amount" data-dojo-attach-point="_amount">50 capacitaciones</span>&nbsp;
+              <div>
+                <span data-dojo-attach-point="_label">en el último mes</span>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END QUICK FILTERING -->
+
+<!-- OPTIONS -->
+<div class="row list-options">
+  <!-- ORDER BY -->
+  <div class="col-xs-3 btn-group">
+      <button type="button" class="btn btn-default">Ordernar por</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Ordenar por</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+          <li><a href="" ng-click="predicate='registryNumber'; reverse = !reverse">N° Registro</a></li>
+          <li><a href="" ng-click="predicate='topic'; reverse = !reverse">Tema</a></li>
+          <li><a href="" ng-click="predicate='dateOfTraining'; reverse = !reverse">Fecha</a></li>
+          <li><a href="" ng-click="predicate='numberOfTrainingHours'; reverse = !reverse">N° Horas</a></li>
+      </ul>
+  </div>
+  <!-- END ORDER BY -->
+
+  <!-- SEARCH -->
+  <div class="col-xs-5 input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+    <input ng-model="searchText" type="text"
+           class="form-control"
+           placeholder="Buscar ...">
+  </div>
+  <!-- END SEARCH -->
+
+  <!-- OTHER OPTIONS -->
+  <div class="col-xs-4">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-print"></span> Imprimir
+      </button>
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-export"></span> Exportar
+      </button>
+    </div>
+  </div>
+  <!-- END OTHER OPTIONS -->
+</div>
+<!-- END OPTIONS -->
+
+<!-- RECORDS -->
+<div class="row">
+  <table class="table table-bordered table-striped col-xs-12">
+    <thead>
+      <tr>
+        <th>N° Registro</th>
+        <th>Tema</th>
+        <th>Fecha</th>
+        <th>N° Horas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="training in trainings | filter:searchText | orderBy:predicate:reverse">
+        <td><a ng-href="#/capacitaciones/{{ training.id }}" class="">{{ training.registryNumber }}</a></td>
+        <td>{{ training.topic }}</td>
+        <td>{{ training.dateOfTraining }}</td>
+        <td>{{ training.numberOfTrainingHours }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- END RECORDS -->
+
+<!-- PAGINATION -->
+<div class="row">
+  <ul class="pagination closer-pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+</div>
+<!-- END PAGINATION -->

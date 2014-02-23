@@ -1,0 +1,132 @@
+<div class="page-header">
+  <h2>Información de la Capacitación</h2>
+</div>
+<div class="row formWrapper">
+  <form role="form" class="col-xs-12">
+    <!-- responsible -->
+    <div class="row">
+      <div class="form-group col-xs-4">
+        <label for="trainingResponsibleInput">N° DNI - Responsable del Registro</label>
+        <input ng-model="training.responsibleIdNumber" id="trainingResponsibleInput" type="text"
+               class="form-control" required>
+      </div>
+    </div>
+    <!-- END responsible -->
+
+    <div class="row">
+      <!-- training type -->
+      <div class="form-group col-xs-4">
+        <label for="trainingTypeSelect">Tipo de Capacitación</label>
+        <select ng-model="training.trainingType"
+                id="trainingTypeSelect" class="form-control">
+          <option>Inducción</option>
+          <option>Capacitación</option>
+          <option>Entrenamiento</option>
+          <option>Simulacro de Emergencia</option>
+        </select>
+      </div>
+      <!-- END training type -->
+
+      <!-- date -->
+      <div class="form-group col-xs-4">
+        <label for="trainingDateInput">Fecha</label>
+        <input ng-model="training.trainingDate" id="trainingDateInput" type="text"
+               class="form-control" required>
+        <p class="help-block">Cuando se llevo a cabo la capacitación.</p>
+      </div>
+      <!-- END date -->
+
+      <!-- hours -->
+      <div class="form-group col-xs-4">
+        <label for="trainingHoursInput">N° Horas</label>
+        <input ng-model="training.trainingHours" id="trainingHoursInput" type="datetime"
+               class="form-control" required>
+      </div>
+      <!-- END hours -->
+    </div>
+
+    <!-- topic -->
+    <div class="row">
+      <div class="form-group col-xs-12">
+        <label for="trainingTopicInput">Tema</label>
+        <input ng-model="training.topic" id="trainingTopicInput" type="text"
+               class="form-control" required>
+      </div>
+    </div>
+    <!-- END topic -->
+
+    <!-- trainer -->
+    <div class="page-header">
+      <h3>Información del capacitador o entrenador</h3>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-2">
+        <label for="trainingTrainerDNIInput">N° DNI</label>
+        <input ng-model="training.trainer.trainerIdNumber" id="trainingTrainerDNIInput" type="text"
+               class="form-control" required>
+      </div>
+      <div class="form-group col-xs-4">
+        <label for="trainingTrainerFirstNameInput">Nombres</label>
+        <input ng-model="training.trainer.trainerFirstName" id="trainingTrainerFirstNameInput" type="text"
+               class="form-control" required>
+      </div>
+      <div class="form-group col-xs-3">
+        <label for="trainingTrainerMiddleNameInput">Apellido Materno</label>
+        <input ng-model="training.trainer.trainerMiddleName"
+               id="trainingTrainerMiddleNameInput" type="text"
+               class="form-control" required>
+      </div>
+      <div class="form-group col-xs-3">
+        <label for="trainingTrainerLastNameInput">Apellido Paterno</label>
+        <input ng-model="training.trainer.trainerLastName"
+               id="trainingTrainerLastNameInput" type="text"
+               class="form-control" required>
+      </div>
+    </div>
+    <!-- END trainer -->
+
+    <!-- employees -->
+    <div class="page-header">
+      <h3>Trabajadores capacitados</h3>
+    </div>
+    <div class="row">
+      <div class="table-lines col-xs-12">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>N° DNI</th>
+              <th>OBSERVACIONES</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="form-control" required></td>
+              <td><textarea class="form-control"></textarea></td>
+              <td><a href="#" class=""><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+            <tr>
+              <td><input type="text" class="form-control" required></td>
+              <td><textarea class="form-control"></textarea></td>
+              <td><a href="#" class=""><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-default">Agregar más lineas</button>
+        <button class="btn btn-default">Limpiar todas las lineas</button>
+      </div>
+    </div>
+    <!-- END employees -->
+
+    <div class="row navbar-default navbar-fixed-bottom formActionsNavbar">
+      <div class="col-xs-6">
+        <a href="#/capacitaciones" class="btn btn-default">Cerrar</a>
+      </div>
+      <div class="col-xs-6">
+        <button class="btn btn-primary pull-right btn-lg">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+

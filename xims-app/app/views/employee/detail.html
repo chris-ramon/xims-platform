@@ -1,0 +1,80 @@
+<!-- HEADER -->
+<div class="row spacedRow">
+  <h3 class="col-xs-2 content-title">{{ employee.displayName }}</h3>
+  <div class="col-xs-10">
+    <div class="pull-right">
+      <a ng-href="#/trabajadores/{{ employee.id }}/editar" class="btn btn-primary">Editar información</a>
+    </div>
+  </div>
+</div>
+<!-- END HEADER -->
+
+<!-- PERSONAL INFORMATION -->
+<div class="row spacedRow">
+  <div class="col-xs-4">
+    <p><strong>N° DNI:</strong> {{ employee.dni }}</p>
+  </div>
+  <div class="col-xs-4">
+    <p><strong>Edad:</strong> {{ employee.age }}</p>
+  </div>
+  <div class="col-xs-4">
+    <p><strong>Área:</strong> {{ employee.workingArea }}</p>
+  </div>
+</div>
+<div class="row spacedRow">
+  <div class="col-xs-4">
+    <p><strong>Ocupación:</strong>  {{ employee.occupation }}</p>
+  </div>
+</div>
+<!-- END PERSONAL INFORMATION -->
+
+<!-- SCTR -->
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="subHeader">SCTR</h3>
+  </div>
+</div>
+<div class="row spacedRow">
+  <div class="col-xs-4">
+    <p><strong>Fecha de Vencimiento: </strong>{{ employee.riskInsurance.expirationDate }}</p>
+  </div>
+</div>
+<!-- END SCTR -->
+
+<!-- MEDICAL EXAMINATION -->
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="subHeader">Examen Médico</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-4">
+    <p><strong>Fecha de Vencimiento: </strong>{{ employee.medicalExamination.expirationDate }}</p>
+  </div>
+</div>
+<!-- END MEDICAL EXAMINATION -->
+
+<!-- TRAININGS -->
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="subHeader">Capacitaciones</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Tema</th>
+        <th>Fecha</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- END TRAININGS -->

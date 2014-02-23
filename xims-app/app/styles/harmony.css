@@ -1,0 +1,110 @@
+.moneyBar  {
+    width:  100%;
+    white-space:  nowrap;
+    font-size:  0.8em;
+}
+.moneyBar *  {
+    outline:  0 none;
+    -webkit-box-sizing:  border-box;
+    -moz-box-sizing:  border-box;
+    box-sizing:  border-box;
+}
+.moneyBar .tableCell  {
+    vertical-align:  bottom;
+}
+.moneyBar .bucket  {
+    width:  100%;
+    padding-right:  5px;
+}
+.moneyBar .bucket .header  {
+    padding-bottom:  2px;
+    color:  #68779b;
+}
+.moneyBar .bucket .table  {
+    width:  100%;
+    height:  68px;
+}
+.moneyBar .bucket .box  {
+    width:  100%;
+    color:  white;
+    height:  75px;
+    padding:  10px 10px 10px 10px;
+    cursor:  pointer;
+    background-image:  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MDNFQ0I5RDVGMEMxMUUyQUU2QkE1NjA2NjgyQjlBNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3MDNFQ0I5RTVGMEMxMUUyQUU2QkE1NjA2NjgyQjlBNiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcwM0VDQjlCNUYwQzExRTJBRTZCQTU2MDY2ODJCOUE2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjcwM0VDQjlDNUYwQzExRTJBRTZCQTU2MDY2ODJCOUE2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+yn67rgAAACVJREFUeNpiYGBg4GVAAErYFBtAfcNGvTbqtVGvjXqNAjZAgAEAEPYFfUaJz74AAAAASUVORK5CYII=);
+}
+.moneyBar .bucket .box .subStatuses  {
+    float:  right;
+    width:  45%;
+}
+.moneyBar .bucket .box .subStatuses .box  {
+    margin-right:  15px;
+    margin-top:  -51px;
+}
+.moneyBar .bucket .box .subStatuses .box.selected,  .moneyBar .bucket .box .subStatuses .box.hover  {
+    margin-top:  -59px;
+}
+.moneyBar .bucket .box.selected,  .moneyBar .bucket .box.hover  {
+    height:  68px;
+}
+.moneyBar .bucket .box.selected .subbox,  .moneyBar .bucket .box.hover .subbox  {
+    position:  relative;
+    top:  -2px;
+}
+.moneyBar .bucket .box.selected .subStatuses .box,  .moneyBar .bucket .box.hover .subStatuses .box  {
+    height:  68px;
+    border-bottom:  6px solid rgba(0,  0,  0,  0.1);
+}
+.moneyBar .bucket .box.selected .subStatuses .box.hover  {
+    margin-top:  -51px;
+}
+.moneyBar .bucket .box.hover .subStatuses .box.selected  {
+    margin-top:  -51px;
+}
+.moneyBar .bucket .box.estimates  {
+    background-color:  #4d5f89;
+}
+.moneyBar .bucket .box.estimates.selected,  .moneyBar .bucket .box.estimates.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.35);
+}
+.moneyBar .bucket .box.ccbt  {
+    background-color:  #6c8eaf;
+}
+.moneyBar .bucket .box.ccbt.selected,  .moneyBar .bucket .box.ccbt.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.35);
+}
+.moneyBar .bucket .box.unbilled  {
+    background-color:  #4d5f89;
+}
+.moneyBar .bucket .box.unbilled.selected,  .moneyBar .bucket .box.unbilled.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.35);
+}
+.moneyBar .bucket .box.unpaid  {
+    background-color:  #f2b835;
+}
+.moneyBar .bucket .box.unpaid.selected,  .moneyBar .bucket .box.unpaid.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.25);
+}
+.moneyBar .bucket .box.overdue  {
+    background-color:  #ce5133;
+}
+.moneyBar .bucket .box.overdue.selected,  .moneyBar .bucket .box.overdue.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.3);
+}
+.moneyBar .bucket .box.paid  {
+    background-color:  #a8cb24;
+}
+.moneyBar .bucket .box.paid.selected,  .moneyBar .bucket .box.paid.hover  {
+    border-bottom:  6px solid rgba(0,  0,  0,  0.25);
+}
+.moneyBar .bucket .box .subbox  {
+    overflow:  hidden;
+    height:  51px;
+}
+.moneyBar .bucket .box .subbox .amount  {
+    margin-bottom:  1px;
+}
+.moneyBar .bucket .box .amount  {
+    font-family:  "DINNextLTPro-Light",  "Arial",  sans-serif;
+    letter-spacing:  -0.05em;
+    font-size:  2.2rem;
+}

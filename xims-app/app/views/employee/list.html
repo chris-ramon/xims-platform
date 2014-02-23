@@ -1,0 +1,144 @@
+<!-- HEADER -->
+<div class="row">
+  <h3 class="col-xs-2 content-title">Trabajadores</h3>
+  <div class="col-xs-10">
+    <div class="pull-right">
+      <button class="btn btn-primary">Importar Trabajadores</button>
+    </div>
+  </div>
+</div>
+<!-- END HEADER -->
+
+<!-- QUICK FILTERING -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table moneyBar" id="uniqName_46_2" widgetid="uniqName_46_2">
+      <div class="tableRow" data-dojo-attach-point="_tableBarRow">
+        <div class="col-xs-4 tableCell">
+          <div class="bucket unbilled_tab" id="dijit__WidgetsInTemplateMixin_7" widgetid="dijit__WidgetsInTemplateMixin_7">
+            <div class="header">SCTR VENCIDO</div>
+            <div class="table">
+              <div ng-click="sri=true;" class="tableRow">
+                <div class="tableCell">
+                  <div class="box estimates" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_7" widgetid="uniqName_45_7">
+                    <div class="subbox">
+                      <span class="amount" data-dojo-attach-point="_amount">2 Trabajadores</span>&nbsp;
+                      <div>
+                        <span>CON SCTR VENCIDO</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 tableCell">
+          <div class="bucket unpaid_tab" id="dijit__WidgetsInTemplateMixin_8" widgetid="dijit__WidgetsInTemplateMixin_8">
+            <div class="header" data-dojo-attach-point="_label">EXAMEN MÉDICO VENCIDO</div>
+            <div class="table">
+              <div class="tableRow" data-dojo-attach-point="_bucketBarRow"><div class="tableCell"><div class="box unpaid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_8" widgetid="uniqName_45_8">
+                <div class="subbox">
+                  <span class="amount" data-dojo-attach-point="_amount">0 Trabajadores</span>&nbsp;
+                  <div>
+                    <span>CON EXAMEN MÉDICO VENCIDO</span>&nbsp;
+                  </div>
+                </div>
+                </div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 tableCell">
+          <div class="bucket paid_tab" id="dijit__WidgetsInTemplateMixin_9" widgetid="dijit__WidgetsInTemplateMixin_9">
+            <div class="header" data-dojo-attach-point="_label">SIN INDUCCIÓN</div>
+            <div class="table">
+              <div ng-click="me=true;" class="tableRow"><div class="tableCell"><div class="box paid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_10" widgetid="uniqName_45_10">
+                <div class="subbox">
+                  <span class="amount" data-dojo-attach-point="_amount">1 Trabajador</span>&nbsp;
+                  <div>
+                    <span data-dojo-attach-point="_count">SIN INDUCCIÓN</span>&nbsp;
+                  </div>
+                </div>
+              </div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END QUICK FILTERING -->
+
+<!-- OPTIONS -->
+<div class="row list-options">
+  <!-- ORDER BY -->
+  <div class="col-xs-3 btn-group">
+    <button type="button" class="btn btn-default">Ordenar por</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      <span class="sr-only">Ordenar por</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="" ng-click="predicate = 'dni'; reverse=!reverse">N° DNI</a></li>
+      <li><a href="" ng-click="predicate = 'firstName'; reverse=!reverse" >Nombres</a></li>
+      <li><a href="" ng-click="predicate = 'middleName'; reverse=!reverse" >Apellidos</a></li>
+    </ul>
+  </div>
+  <!-- END ORDER BY -->
+
+  <!-- SEARCH -->
+  <div class="col-xs-5 input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+    <input ng-model="searchText" type="text"
+           class="form-control"
+           placeholder="Buscar ...">
+  </div>
+  <!-- END SEARCH -->
+
+  <!-- OTHER OPTIONS -->
+  <div class="col-xs-4">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-print"></span> Imprimir
+      </button>
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-export"></span> Exportar
+      </button>
+    </div>
+  </div>
+  <!-- END OTHER OPTIONS -->
+</div>
+<!-- END OPTIONS -->
+
+<!-- RECORDS -->
+<div class="row">
+  <table class="table table-bordered table-striped col-xs-12">
+    <thead>
+    <tr>
+      <th>N° DNI</th>
+      <th>Nombres y Apellidos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="employee in employees | filter:{$:searchText, supplementaryRiskInsurance.expired: sri, medicalExam.expired: me} | orderBy:predicate:reverse">
+      <td><a ng-href="#/trabajadores/{{ employee.id }}" class="">{{ employee.dni }}</a></td>
+      <td>{{ employee.displayName }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- END RECORDS -->
+
+<!-- PAGINATION -->
+<div class="row">
+  <ul class="pagination closer-pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+</div>
+<!-- END PAGINATION -->
