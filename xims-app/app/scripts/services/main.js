@@ -9,18 +9,6 @@ angular.module('ximsApp')
     self.name = name;
     return self;
   })
-  .service('EmployeeService', function() {
-    var self = this;
-    self.getAll = function() {
-      return [
-        {id: 1, dni: 45996135, displayName: 'Chris Ramón', firstName: 'Chris', middleName: 'Ramón'},
-        {id: 2, dni: 45996556, displayName: 'Roger Rodriguez', firstName: 'Roger', middleName: 'Rodriguez'},
-        {id: 3, dni: 45336556, displayName: 'Luis Rodriguez', firstName: 'Luis', middleName: 'Rodriguez'},
-        {id: 4, dni: 45966556, displayName: 'John Doe', firstName: 'John', middleName: 'Doe', supplementaryRiskInsurance: {expired: true}},
-        {id: 5, dni: 45998556, displayName: 'Michael Lara', firstName: 'Michael', middleName: 'Lara', supplementaryRiskInsurance: {expired: true}},
-        {id: 6, dni: 45996956, displayName: 'Juan Perez', firstName: 'Juan', middleName: 'Perez', medicalExam: {expired: true}}]
-    }
-  })
   .service('CompanyService', function() {
     var self = this;
     var company = {
