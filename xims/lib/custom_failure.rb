@@ -11,6 +11,6 @@ class CustomFailure < Devise::FailureApp
   def json_failure
     self.status = 401
     self.content_type = 'json'
-    self.response_body = "{failed: 'FAILED'}"
+    self.response_body = '{"failed": "FAILED"}'
   end
 end
