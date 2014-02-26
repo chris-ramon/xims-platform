@@ -13,6 +13,10 @@ angular.module('ximsApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/sign_in', {
+        templateUrl: 'views/session/sign_in.html',
+        controller: 'SignInCtrl'
+      })
       .when('/trabajadores', {
         templateUrl: 'views/employee/list.html',
         controller: 'EmployeeListCtrl'
