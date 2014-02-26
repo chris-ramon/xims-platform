@@ -120,9 +120,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="employee in employees | filter:{$:searchText, supplementaryRiskInsurance.expired: sri, medicalExam.expired: me} | orderBy:predicate:reverse">
-      <td><a ng-href="#/trabajadores/{{ employee.id }}" class="">{{ employee.dni }}</a></td>
-      <td>{{ employee.displayName }}</td>
+    <tr ng-repeat="employee in employees | filter:{$:searchText} | orderBy:predicate:reverse">
+      <td>
+          <a ng-href="#/trabajadores/{{ employee.id }}"
+             class="">{{ employee.id_number }}</a></td>
+      <td>{{ employee.first_name }} {{ employee.middle_name }},
+          {{ employee.last_name }} {{ employee.second_last_name }}</td>
     </tr>
     </tbody>
   </table>
