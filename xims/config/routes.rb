@@ -1,5 +1,5 @@
 Xims::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :skip => [:registrations], :controllers => { :sessions => "sessions" }
   get '/:organization_id/employees', to: 'employees#index'
   get '/employees/:employee_id', to: 'employees#show'
 
