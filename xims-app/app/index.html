@@ -50,9 +50,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">{{ UserService }}</a></li>
                     <li ng-show='UserService.currentUser' class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ UserService.currentUser.first_name }}
+                            <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a ng-click="signOut()" href="">Cerrar sesión</a></li>
                             <li><a href="#">Another action</a></li>
