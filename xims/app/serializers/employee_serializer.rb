@@ -4,6 +4,8 @@ class EmployeeSerializer < ApplicationSerializer
              :middle_name,
              :last_name,
              :second_last_name
+  has_one :organization, serializer: OrganizationSerializer, embed: :objects
+
   def first_name
     object.individual.first_name
   end
