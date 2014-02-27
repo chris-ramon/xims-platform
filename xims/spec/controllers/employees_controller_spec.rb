@@ -36,7 +36,6 @@ describe EmployeesController do
           response.should be_success
           parsed = JSON.parse(response.body)
           parsed['data'].length.should == 1
-          parsed['meta']['total_pages'].should == 4
           parsed['meta']['current_page'].should == 1
         end
         it 'returns correct JSON format' do
@@ -49,6 +48,12 @@ describe EmployeesController do
           parsed['data'][0].should have_key('middle_name')
           parsed['data'][0].should have_key('last_name')
           parsed['data'][0].should have_key('second_last_name')
+        end
+        it 'paginates' do
+          xhr :get, :index, organization_id: abc_organization.id, page: 3
+          parsed = JSON(response.body)
+          parsed['meta']['total_items'].should == 4
+          parsed['meta']['current_page'].should == 3
         end
       end
     end

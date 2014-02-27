@@ -20,8 +20,8 @@ class EmployeesController < ApplicationController
       .page(params[:page])
 
     guardian.ensure_can_see!(employee)
-    meta = {current_page: finder.page.current_page,
-            total_pages: finder.total_pages.to_i}
+    meta = {current_page: finder.current_page,
+            total_items: finder.total_count}
     render json: {data: finder,
                   meta: meta}
   end
