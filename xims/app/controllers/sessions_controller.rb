@@ -20,6 +20,6 @@ class SessionsController < Devise::SessionsController
   def show_current_user
     warden.authenticate!(:scope => resource_name,
                          :recall => "#{controller_path}#failure")
-    render json: current_user
+    render json: current_user.employee
   end
 end

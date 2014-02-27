@@ -14,6 +14,7 @@ describe SessionsController do
       employee.should have_key('middle_name')
       employee.should have_key('last_name')
       employee.should have_key('second_last_name')
+      employee.should have_key('organization')
     end
   end
 end
