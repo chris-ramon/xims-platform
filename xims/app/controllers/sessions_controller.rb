@@ -4,7 +4,7 @@ class SessionsController < Devise::SessionsController
     resource = warden.authenticate!(:scope => resource_name,
                                     :recall => "#{controller_path}#failure")
     sign_in(resource_name, resource)
-    render json: success_json
+    render json: current_user.employee
   end
 
   def destroy
