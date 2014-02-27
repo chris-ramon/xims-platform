@@ -4,11 +4,19 @@ angular.module('ximsApp')
   .controller('MainCtrl', function ($scope, ModuleService) {
     ModuleService.name = ModuleService.HOME;
   })
-  .controller('NavbarCtrl', function($scope, ModuleService) {
+  .controller('SidebarCtrl', function($scope, ModuleService) {
     $scope.currentModule = function(module) {
       return ModuleService.name === module;
     };
   })
+  .controller('TopNavbarCtrl', ['$scope', '$route', 'UserService',
+    function($scope, $route, UserService) {
+    UserService.setCurrentUser();
+    $scope.UserService = UserService;
+    $scope.signOut = function() {
+      UserService.signOut().success(function() { $route.reload(); });
+    }
+  }])
   .controller('TrainingCtrl', function(ModuleService, TrainingService, $scope) {
     ModuleService.name = ModuleService.TRAINING;
     $scope.training = {

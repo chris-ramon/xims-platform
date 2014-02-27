@@ -37,7 +37,7 @@
     <![endif]-->
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div ng-controller="TopNavbarCtrl" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-inner">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -50,10 +50,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
+                    <li><a href="#">{{ UserService }}</a></li>
+                    <li ng-show='UserService.currentUser' class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
+                            <li><a ng-click="signOut()" href="">Cerrar sesión</a></li>
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li class="divider"></li>
@@ -71,7 +72,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
-                <ul ng-controller="NavbarCtrl" class="nav nav-sidebar">
+                <ul ng-controller="SidebarCtrl" class="nav nav-sidebar">
                     <li ng-class="{active: currentModule('home')}">
                         <a ng-href="#">
                             <span class="glyphicon glyphicon-dashboard"></span> Dashboard
