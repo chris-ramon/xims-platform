@@ -130,4 +130,10 @@ body {
 .navbar-inner {
     padding-right: 10px;
 }
+.sg-pagination {
+    margin-top: -30px;
+}
+.sg-pagination a {
+    cursor: pointer;
+}
 /* end custom styling */
