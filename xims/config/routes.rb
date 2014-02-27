@@ -1,5 +1,8 @@
 Xims::Application.routes.draw do
   devise_for :users, :skip => [:registrations], :controllers => { :sessions => "sessions" }
+  devise_scope :user do
+    get 'users/current_user' => 'sessions#show_current_user', :as => 'show_current_user'
+  end
   get '/:organization_id/employees', to: 'employees#index'
   get '/employees/:employee_id', to: 'employees#show'
 
