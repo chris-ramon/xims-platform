@@ -7,7 +7,10 @@ angular.module('ximsApp', [
   'ngRoute',
   'ui.bootstrap'
 ])
-  .config(function ($routeProvider) {
+  .config(function ($httpProvider, $routeProvider) {
+    // so we can send the cookies for auth
+    $httpProvider.defaults.withCredentials = true;
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
