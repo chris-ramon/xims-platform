@@ -47,6 +47,7 @@ end
 
 gem 'kaminari' #pagination
 gem 'devise' #auth
+gem 'active_model_serializers' #serialization
 
 group :development, :test do
   gem 'rspec-rails'
