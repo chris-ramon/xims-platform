@@ -26,9 +26,8 @@ angular.module('ximsApp')
         method: 'GET'
       }).success(updateCurrentUser);
     }
-    function updateCurrentUser(r, status) {
-      self.currentUser = {};
-      self.currentUser.email = r.email;
+    function updateCurrentUser(r) {
+      self.currentUser = r.employee;
     }
     function afterSignOut() {
       self.currentUser = null;
