@@ -22,8 +22,4 @@ class SessionsController < Devise::SessionsController
                          :recall => "#{controller_path}#failure")
     render json: current_user
   end
-
-  #def new
-  #  render nothing: true
-  #end
 end
