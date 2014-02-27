@@ -36,7 +36,8 @@ describe EmployeesController do
           response.should be_success
           parsed = JSON.parse(response.body)
           parsed['data'].length.should == 1
-          parsed['metadata']['total_pages'].should == 4
+          parsed['meta']['total_pages'].should == 4
+          parsed['meta']['current_page'].should == 1
         end
         it 'returns correct JSON format' do
           xhr :get, :index, organization_id: abc_organization.id
