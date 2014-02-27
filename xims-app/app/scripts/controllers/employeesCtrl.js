@@ -1,19 +1,26 @@
 'use strict';
 
 angular.module('ximsApp')
-  .controller('EmployeeListCtrl', function(ModuleService, EmployeeService, $scope) {
+  .controller('EmployeeListCtrl',
+    ['$scope', 'ModuleService', 'EmployeeService', 'AppSettings',
+      function($scope, ModuleService, EmployeeService, AppSettings) {
     ModuleService.name = ModuleService.EMPLOYEE;
     $scope.employees = [];
     $scope.meta = {};
-    EmployeeService.getAll()
-      .success(function(response) {
-        $scope.employees = response.data;
-        $scope.meta['total_pages'] = response.meta.total_pages;
-        $scope.meta['current_page'] = response.meta.current_page;
-      });
-    $scope.getTotalPages = function() { return new Array($scope.meta.total_pages); }
-    $scope.isActivePage = function(index) { return (index + 1) == $scope.meta.current_page; }
-  })
+    $scope.totalItems = 0;
+    $scope.currentPage = 0;
+    $scope.maxSize = AppSettings.pagination.maxSize;
+    $scope.itemsPerPage = AppSettings.pagination.itemsPerPage;
+    $scope.setEmployees = function(page) {
+      EmployeeService.getAll(page)
+        .success(function(response) {
+          $scope.employees = response.data;
+          $scope.totalItems = response.meta.total_items;
+          $scope.currentPage = response.meta.current_page;
+        });
+    }
+    $scope.setEmployees();
+  }])
   .controller('EmployeeCtrl', function(ModuleService, $routeParams, $scope) {
     ModuleService.name = ModuleService.EMPLOYEE;
     // $scope.employee = $routeParams.employeeId;
