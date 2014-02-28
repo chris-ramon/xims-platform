@@ -12,6 +12,8 @@ Xims::Application.routes.draw do
   get '/trainings/:training_id/employees', to: 'training_employees#index_employees'
   get '/trainings/:employee_id/trainings', to: 'training_employees#index_trainings'
 
+  get '/search/employees', to: 'search#employees'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
