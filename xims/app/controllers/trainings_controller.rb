@@ -33,12 +33,13 @@ class TrainingsController < ApplicationController
     end
   end
 
-  def create_params
-    permitted = [
-        :organization_id,
-        :responsible_id, :trainer_id, :training_type,
-        :training_date, :training_hours, :topic,
-        {employees: [:id]}]
-    params.require(:training).permit(*permitted)
-  end
+  private
+    def create_params
+      permitted = [
+          :organization_id,
+          :responsible_id, :trainer_id, :training_type,
+          :training_date, :training_hours, :topic,
+          {employees: [:id]}]
+      params.require(:training).permit(*permitted)
+    end
 end
