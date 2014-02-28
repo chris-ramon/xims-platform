@@ -87,11 +87,18 @@
   <!-- END ORDER BY -->
 
   <!-- SEARCH -->
-  <div class="col-xs-5 input-group">
-    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-    <input ng-model="searchText" type="text"
-           class="form-control"
-           placeholder="Buscar ...">
+  <div class="col-xs-5 ">
+    <form ng-submit="search()" class="input-group">
+      <input ng-model="searchText" type="text" class="form-control" placeholder="DNI, Nombres, Apellidos ...">
+      <span class="input-group-btn">
+      <button
+          ng-click="search()"
+          ng-disabled="searchingEmployees"
+          class="btn btn-default"
+          type="button">
+        <i class="glyphicon glyphicon-search"></i> Buscar</button>
+      </span>
+    </form>
   </div>
   <!-- END SEARCH -->
 
@@ -119,8 +126,9 @@
       <th>Nombres y Apellidos</th>
     </tr>
     </thead>
-    <tbody>
-    <tr ng-repeat="employee in employees | filter:{$:searchText} | orderBy:predicate:reverse">
+    <tbody ng-hide="searchingEmployees" >
+    <!--<tr ng-repeat="employee in employees | filter:{$:searchText} | orderBy:predicate:reverse">-->
+    <tr ng-repeat="employee in employees">
       <td>
           <a ng-href="#/trabajadores/{{ employee.id }}"
              class="">{{ employee.id_number }}</a></td>
@@ -132,8 +140,14 @@
 </div>
 <!-- END RECORDS -->
 
+<!--LOADER-->
+<div ng-show="searchingEmployees" class="row text-center">
+    <i class="fa fa-spinner fa-spin fa-4x"></i>
+</div>
+<!--END LOADER-->
+
 <!-- PAGINATION -->
-<div class="row sg-pagination">
+<div ng-hide="searchingEmployees" class="row sg-pagination">
   <pagination total-items="totalItems"
               page="currentPage"
               max-size="maxSize"
