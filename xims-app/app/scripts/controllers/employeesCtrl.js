@@ -2,8 +2,8 @@
 
 angular.module('ximsApp')
   .controller('EmployeeListCtrl',
-    ['$scope', '$filter', 'ModuleService', 'EmployeeService', 'AppSettings',
-      function($scope, $filter, ModuleService, EmployeeService, AppSettings) {
+    ['$scope', '$filter', '$rootScope', 'ModuleService', 'UserService','EmployeeService', 'AppSettings',
+      function($scope, $filter, $rootScope, ModuleService, UserService, EmployeeService, AppSettings) {
     ModuleService.name = ModuleService.EMPLOYEE;
     $scope.employees = [];
     $scope.employeesCache = [];
@@ -16,19 +16,17 @@ angular.module('ximsApp')
     $scope.itemsPerPage = AppSettings.pagination.itemsPerPage;
 
     $scope.setEmployees = function(page) {
-      EmployeeService.getAll(page)
-        .success(function(response) {
-          $scope.employees = response.data;
-          $scope.employeesCache = response.data;
-          $scope.totalItems = response.meta.total_items;
-          $scope.currentPage = response.meta.current_page;
-          $scope.searchingEmployees = false;
-        });
+      if($scope.searchText == "")
+        EmployeeService.getAll(page).success(successResponse);
+      else
+        EmployeeService.search($scope.searchText, page).success(successResponse);
     }
     
     $scope.search = function() {
       if($scope.searchingEmployees) { return; }
+      if($scope.searchText == "") { $scope.setEmployees(); return; }
       $scope.searchingEmployees = true;
+      EmployeeService.search($scope.searchText).success(successResponse);
     }
 
     $scope.$watch("searchText", function(newVal) {
@@ -41,9 +39,16 @@ angular.module('ximsApp')
       else { $scope.employees = $scope.employeesCache; }
     }
 
-    (function() {
-      $scope.setEmployees();
-    })();
+    function successResponse(response) {
+      $scope.employees = response.data;
+      $scope.employeesCache = response.data;
+      $scope.totalItems = response.meta.total_items;
+      $scope.currentPage = response.meta.current_page;
+      $scope.searchingEmployees = false;
+    }
+
+    $rootScope.$on('userLogged', function() { $scope.setEmployees(); });
+    if(UserService.currentUser) { $scope.setEmployees(); }
   }])
   .controller('EmployeeCtrl', function(ModuleService, $routeParams, $scope) {
     ModuleService.name = ModuleService.EMPLOYEE;
