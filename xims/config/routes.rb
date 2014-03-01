@@ -3,7 +3,7 @@ Xims::Application.routes.draw do
   devise_scope :user do
     get 'users/current_user' => 'sessions#show_current_user', :as => 'show_current_user'
   end
-  get '/:organization_id/employees', to: 'employees#index'
+  get '/:organization_id/employees', to: 'employees#index', constraints: {organization_id: /\d+/}
   get '/employees/:employee_id', to: 'employees#show'
 
   get '/:organization_id/trainings', to: 'trainings#index'
