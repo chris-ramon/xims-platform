@@ -9,9 +9,12 @@ angular.module('ximsApp')
       return ModuleService.name === module;
     };
   })
-  .controller('TopNavbarCtrl', ['$scope', '$route', 'UserService',
-    function($scope, $route, UserService) {
-    UserService.setCurrentUser();
+  .controller('TopNavbarCtrl',
+    ['$scope', '$route', '$rootScope', 'UserService',
+      function($scope, $route, $rootScope, UserService) {
+    UserService.setCurrentUser().success(function() {
+      $rootScope.$emit('userLogged');
+    });
     $scope.UserService = UserService;
     $scope.signOut = function() {
       UserService.signOut().success(function() { $route.reload(); });
