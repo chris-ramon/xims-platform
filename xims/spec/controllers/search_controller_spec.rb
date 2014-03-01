@@ -3,6 +3,9 @@ require 'spec_helper'
 describe SearchController do
   describe 'search' do
     context 'when user logged in and is allowed' do
+      before do
+        sign_in create(:user)
+      end
       context 'when search by id number' do
         before(:each) do
           @individual = create(:individual)
@@ -27,12 +30,21 @@ describe SearchController do
               term: 'chris'
           response.should be_success
           parsed = JSON(response.body)
-          parsed['data'].length.should == 2
+          parsed['data'].length.should == 1
           parsed['data'][0].should have_key('id_number')
           parsed['data'][0].should have_key('first_name')
           parsed['data'][0].should have_key('middle_name')
           parsed['data'][0].should have_key('last_name')
           parsed['data'][0].should have_key('second_last_name')
+        end
+        it 'paginates' do
+          xhr :get, :employees,
+              term: 'chris', page: 1
+          response.should be_success
+          parsed = JSON(response.body)
+          parsed['data'].length.should == 1
+          parsed['meta']['total_items'].should == 2
+          parsed['meta']['current_page'].should == 1
         end
       end
     end
