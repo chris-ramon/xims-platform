@@ -4,7 +4,8 @@ class SearchController < ApplicationController
   def employees
     individuals = Individual.search search_params,
                                     page: params[:page],
-                                    per_page: Kaminari.config.default_per_page
+                                    per_page: Kaminari.config.default_per_page,
+                                    where: {organization_id: current_user.employee.organization_id}
     meta = {total_items: individuals.total,
             current_page: params[:page].to_i}
     response = {data: individuals,
