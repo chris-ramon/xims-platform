@@ -141,6 +141,12 @@
 </div>
 <!-- END RECORDS -->
 
+<div ng-hide="employees" class="row">
+  <div class="alert alert-info">
+    <p>No se encontraron resultados.</p>
+  </div>
+</div>
+
 <!--LOADER-->
 <div ng-show="searchingEmployees" class="row text-center">
     <i class="fa fa-spinner fa-spin fa-4x"></i>
@@ -148,7 +154,7 @@
 <!--END LOADER-->
 
 <!-- PAGINATION -->
-<div ng-hide="searchingEmployees" class="row sg-pagination">
+<div ng-hide="hidePagination()" class="row sg-pagination">
   <pagination total-items="totalItems"
               page="currentPage"
               max-size="maxSize"
