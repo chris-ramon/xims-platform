@@ -33,6 +33,12 @@ angular.module('ximsApp')
       setEmployeesFiltered(newVal);
     });
 
+    $scope.hidePagination = function() {
+      if($scope.employees.length > 0) { return false; }
+      else if ($scope.searchingEmployees) { return true; }
+      else { return true; }
+    }
+
     function setEmployeesFiltered(newVal) {
       var result = $filter('filter')($scope.employeesCache, newVal);
       if(result.length) { $scope.employees = result; }
