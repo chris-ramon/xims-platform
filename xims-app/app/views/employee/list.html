@@ -128,8 +128,7 @@
     </tr>
     </thead>
     <tbody ng-hide="searchingEmployees" >
-    <!--<tr ng-repeat="employee in employees | filter:{$:searchText} | orderBy:predicate:reverse">-->
-    <tr ng-repeat="employee in employees">
+    <tr ng-repeat="employee in employees | filter:{$:searchText} | orderBy:predicate:reverse">
       <td>
           <a ng-href="#/trabajadores/{{ employee.id }}"
              class="">{{ employee.id_number }}</a></td>
