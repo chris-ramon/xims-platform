@@ -9,7 +9,7 @@ describe TrainingCreator do
     let(:employee_roger) { create(:employee) }
     let(:training_params) {
       {training: {organization_id: organization.id, responsible_id: 1,
-                  trainer_id: 1, training_type: Training::TRAINING_TYPE[:induction],
+                  trainer_id: 1, training_type: Training.types[:induction],
                   training_date: Time.now, training_hours: 2,
                   topic: 'some topic!',
                   employees: [{id: employee_chris.id,
