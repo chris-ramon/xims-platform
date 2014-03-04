@@ -70,7 +70,7 @@ describe TrainingsController do
       let(:chris_as_user) { create(:user, employee: chris_as_employee) }
       let(:training_params) {
         {training: {organization_id: abc_organization.id, responsible_id: 1,
-                    trainer_id: 1, training_type: Training::TRAINING_TYPE[:induction],
+                    trainer_id: 1, training_type: Training.types[:induction],
                     training_date: Time.now, training_hours: 2,
                     topic: 'some topic!',
                     employees: [{id: chris_as_employee.id,
