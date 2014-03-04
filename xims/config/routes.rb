@@ -8,6 +8,9 @@ Xims::Application.routes.draw do
 
   get '/:organization_id/trainings', to: 'trainings#index'
   post '/:organization_id/trainings', to: 'trainings#create'
+
+  get '/:organization_id/employees/alerts', to: 'alerts#employees'
+
   get '/trainings/:training_id', to: 'trainings#show'
   get '/trainings/:training_id/employees', to: 'training_employees#index_employees'
   get '/trainings/:employee_id/trainings', to: 'training_employees#index_trainings'
