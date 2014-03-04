@@ -10,12 +10,7 @@ class EmployeesController < ApplicationController
       .first
 
     finder = Employee
-      .joins(:individual)
-      .select('employees.id',  'individuals.id_number',
-              'individuals.first_name',
-              'individuals.middle_name',
-              'individuals.last_name',
-              'individuals.second_last_name')
+      .with_individual
       .where(organization_id: params[:organization_id])
       .page(params[:page])
 
