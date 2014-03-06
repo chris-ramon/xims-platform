@@ -4,16 +4,16 @@ Xims::Application.routes.draw do
     get 'users/current_user' => 'sessions#show_current_user', :as => 'show_current_user'
   end
   get '/:organization_id/employees', to: 'employees#index', constraints: {organization_id: /\d+/}
-  get '/employees/:employee_id', to: 'employees#show'
+  get '/employees/:employee_id', to: 'employees#show', constraints: {employee_id: /\d+/}
 
-  get '/:organization_id/trainings', to: 'trainings#index'
-  post '/:organization_id/trainings', to: 'trainings#create'
+  get '/:organization_id/trainings', to: 'trainings#index', constraints: {organization_id: /\d+/}
+  post '/:organization_id/trainings', to: 'trainings#create', constraints: {organization_id: /\d+/}
 
-  get '/:organization_id/employees/alerts', to: 'alerts#employees'
+  get '/:organization_id/employees/alerts/:alert_type/', to: 'alerts#employees', constraints: {organization_id: /\d+/, alert_type: /\d+/}
 
-  get '/trainings/:training_id', to: 'trainings#show'
-  get '/trainings/:training_id/employees', to: 'training_employees#index_employees'
-  get '/trainings/:employee_id/trainings', to: 'training_employees#index_trainings'
+  get '/trainings/:training_id', to: 'trainings#show', constraints: {training_id: /\d+/}
+  get '/trainings/:training_id/employees', to: 'training_employees#index_employees', constraints: {training_id: /\d+/}
+  get '/trainings/:employee_id/trainings', to: 'training_employees#index_trainings', constraints: {employee_id: /\d+/}
 
   get '/search/employees', to: 'search#employees'
 
@@ -22,53 +22,4 @@ Xims::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end
