@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 
 describe AlertsController do
@@ -16,25 +17,33 @@ describe AlertsController do
       sign_in chris_as_user
     end
     context 'when logged in and not allowed' do
+      before do
+        Guardian.any_instance.stubs(:can_see_employee?)
+          .returns(false)
+        Alerts::Employee
+          .any_instance.stubs(:risk_insurance_expired)
+          .returns([mock_model(Employee)])
+      end
       it 'fails' do
-        xhr :get, :employees, organization_id: other_organization.id
-        #response.should_not be_success
+        xhr :get, :employees,
+            organization_id: other_organization.id,
+            alert_type: Alerts::Employee.types[:risk_insurance_expired]
+        response.should_not be_success
       end
     end
     context 'when logged in and allowed' do
-      it 'succeeds' do
-        xhr :get, :employees, organization_id: abc_organization.id
-        #response.should be_success
+      before do
+        Guardian.any_instance.stubs(:can_see_employee?)
+          .returns(true)
+        Alerts::Employee
+          .any_instance.stubs(:risk_insurance_expired)
+          .returns([mock_model(Employee)])
       end
-      it 'returns correct JSON format' do
-        xhr :get, :employees, organization_id: abc_organization.id
-        #parsed = JSON.parse(response.body)
-        #parsed['data'][0].should have_key('id')
-        #parsed['data'][0].should have_key('id_number')
-        #parsed['data'][0].should have_key('first_name')
-        #parsed['data'][0].should have_key('middle_name')
-        #parsed['data'][0].should have_key('last_name')
-        #parsed['data'][0].should have_key('second_last_name')
+      it 'succeeds' do
+        xhr :get, :employees,
+            organization_id: abc_organization.id,
+            alert_type: Alerts::Employee.types[:risk_insurance_expired]
+        response.should be_success
       end
     end
   end
