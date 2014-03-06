@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 
-describe EmployeeAlerts do
+describe Alerts::Employee do
   let(:abc_organization) { create(:organization_with_employees, employees_count: 3) }
   let(:other_organization) { create(:organization_with_employees, employees_count: 3) }
-  let(:employee_alerts) { EmployeeAlerts.new(abc_organization) }
+  let(:employee_alerts) { described_class.new(abc_organization) }
   before do
     abc_organization.employees.to_a.each do |employee|
       risk_insurance = employee.risk_insurances.first
