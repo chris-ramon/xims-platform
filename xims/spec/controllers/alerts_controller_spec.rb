@@ -13,6 +13,7 @@ describe AlertsController do
     let(:roger_as_employee) { create(:employee,
                                    individual: roger_as_individual,
                                    organization: other_organization) }
+    let(:employees_result) { {employees: [mock_model(Employee)], total_items: 10} }
     before do
       sign_in chris_as_user
     end
@@ -22,7 +23,7 @@ describe AlertsController do
           .returns(false)
         Alerts::Employee
           .any_instance.stubs(:risk_insurance_expired)
-          .returns([mock_model(Employee)])
+          .returns(employees_result)
       end
       it 'fails' do
         xhr :get, :employees,
@@ -37,13 +38,17 @@ describe AlertsController do
           .returns(true)
         Alerts::Employee
           .any_instance.stubs(:risk_insurance_expired)
-          .returns([mock_model(Employee)])
+          .returns(employees_result)
       end
       it 'succeeds' do
         xhr :get, :employees,
             organization_id: abc_organization.id,
             alert_type: Alerts::Employee.types[:risk_insurance_expired]
         response.should be_success
+        parsed = JSON(response.body)
+        parsed['data'].length.should == 1
+        parsed['meta']['current_page'].should == nil
+        parsed['meta']['total_items'].should == 10
       end
     end
   end
