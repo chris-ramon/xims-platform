@@ -2,17 +2,18 @@ class TrainingCreator
 
   attr_reader :errors, :opts
 
-  # Arguments
+  # Parameters
   #   opts :  {training: {}, employees: []}
   #     training:
   #       - responsible_id        : Individual id
   #       - trainer_id            : Individual id
-  #       - training_type         : Training::TRAINING_TYPE
+  #       - training_type         : Training.type
   #       - training_date         : Time
   #       - topic                 : string
-  #       - employees             : array of hashes
-  #               - id            : Employee id
-  #               - observations  : string
+  #
+  #     employees:                : array of hashes
+  #        - id                   : Employee id
+  #        - observations         : string
   def initialize(user, opts)
     @user = user
     @opts = opts || {}
