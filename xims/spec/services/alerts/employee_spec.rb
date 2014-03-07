@@ -31,11 +31,11 @@ describe Alerts::Employee do
   describe 'risk_insurance_expired' do
     context 'when there are employees with ri expired' do
       it 'filters by the given organization' do
-        employee_alerts.risk_insurance_expired
-          .length.should == 3
+        employee_alerts.risk_insurance_expired[:employees]
+          .length.should == 1
       end
       it 'returns the correct attributes' do
-        first = employee_alerts.risk_insurance_expired[0]
+        first = employee_alerts.risk_insurance_expired[:employees][0]
         first.should respond_to('id')
         first.should respond_to('id_number')
         first.should respond_to('first_name')
@@ -48,16 +48,16 @@ describe Alerts::Employee do
   describe 'medical_exam_expired' do
     context 'when there are employees with me expired ' do
       it 'filters by the given organization' do
-        employee_alerts.medical_exam_expired
-          .length.should == 3
+        employee_alerts.medical_exam_expired[:employees]
+          .length.should == 1
       end
     end
   end
   describe 'no_induction_training' do
     context 'when there are employees without induction training' do
       it 'filters by the given organization' do
-        employee_alerts.no_induction_training
-          .length.should == 3
+        employee_alerts.no_induction_training[:employees]
+          .length.should == 1
       end
     end
   end
