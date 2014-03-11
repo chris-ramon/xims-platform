@@ -25,15 +25,6 @@ describe('employees page', function() {
       expect(employeesPage.employeesList.count()).toBeGreaterThan(0);
     });
   });
-//  describe('when quick filter', function() {
-//    describe('when choose any filter', function() {
-//      it('should list employees', function() {
-//        element(by.id('riskInsuranceExpiredBox')).click();
-//        employeesList = element.all(by.repeater('employee in employees'));
-//        expect(employeesList.count()).toEqual(0);
-//      });
-//    });
-//  });
   it('afterAll', function() {
     signOutPage.signOut();
   });
