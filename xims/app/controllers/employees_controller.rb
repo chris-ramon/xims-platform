@@ -4,17 +4,12 @@ class EmployeesController < ApplicationController
   def index
     params.permit(:page)
 
-    employee = Employee
-      .select('organization_id')
-      .where(organization_id: params[:organization_id])
-      .first
-
     finder = Employee
       .with_individual
       .where(organization_id: params[:organization_id])
       .page(params[:page])
 
-    guardian.ensure_can_see!(employee)
+    guardian.ensure_can_see!(finder.first)
     meta = {current_page: finder.current_page,
             total_items: finder.total_count}
     render json: {data: finder,
