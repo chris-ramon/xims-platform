@@ -11,8 +11,9 @@ class Employee < ActiveRecord::Base
 
   scope :with_individual, -> {
     joins(:individual)
-      .select('employees.id', 'individuals.id_number',
-              'individuals.first_name', 'individuals.middle_name',
-              'individuals.last_name', 'individuals.second_last_name')
+      .select('employees.id', 'employees.organization_id',
+              'individuals.id_number', 'individuals.first_name',
+              'individuals.middle_name', 'individuals.last_name',
+              'individuals.second_last_name')
   }
 end
