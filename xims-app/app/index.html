@@ -55,7 +55,7 @@
                             {{ UserService.currentUser.first_name }}
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a ng-click="signOut()" href="">Cerrar sesión</a></li>
+                            <li><a id='signOutAnchor' ng-click="signOut()" href="">Cerrar sesión</a></li>
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li class="divider"></li>
@@ -142,7 +142,9 @@
         <script src="scripts/services/appSettings.js"></script>
         <script src="scripts/services/employee.js"></script>
         <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/employee_alerts.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/employeeListCtrl.js"></script>
         <script src="scripts/controllers/sessionsCtrl.js"></script>
         <script src="scripts/controllers/employeesCtrl.js"></script>
         <!-- endbuild -->
