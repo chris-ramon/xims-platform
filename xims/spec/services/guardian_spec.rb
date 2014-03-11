@@ -19,6 +19,7 @@ describe Guardian do
       describe 'when user DOES NOT belongs to same organization' do
         it 'is false' do
           @chris_as_employee.organization = create(:organization)
+          @chris_as_employee.save
           Guardian.new(@roger_as_user).can_see?(@chris_as_employee).should == false
         end
       end
