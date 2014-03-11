@@ -14,6 +14,7 @@ describe AlertsController do
                                    individual: roger_as_individual,
                                    organization: other_organization) }
     let(:employees_result) { {employees: [mock_model(Employee)], total_items: 10} }
+    let(:employees_result_empty) { {employees: [], total_items: 0} }
     before do
       sign_in chris_as_user
     end
@@ -33,22 +34,43 @@ describe AlertsController do
       end
     end
     context 'when logged in and allowed' do
-      before do
-        Guardian.any_instance.stubs(:can_see_employee?)
+      context 'when there are results' do
+        before do
+          Guardian.any_instance.stubs(:can_see_employee?)
           .returns(true)
-        Alerts::Employee
+          Alerts::Employee
           .any_instance.stubs(:risk_insurance_expired)
           .returns(employees_result)
+        end
+        it 'succeeds' do
+          xhr :get, :employees,
+              organization_id: abc_organization.id,
+              alert_type: Alerts::Employee.types[:risk_insurance_expired]
+          response.should be_success
+          parsed = JSON(response.body)
+          parsed['data'].length.should == 1
+          parsed['meta']['current_page'].should == nil
+          parsed['meta']['total_items'].should == 10
+        end
       end
-      it 'succeeds' do
-        xhr :get, :employees,
-            organization_id: abc_organization.id,
-            alert_type: Alerts::Employee.types[:risk_insurance_expired]
-        response.should be_success
-        parsed = JSON(response.body)
-        parsed['data'].length.should == 1
-        parsed['meta']['current_page'].should == nil
-        parsed['meta']['total_items'].should == 10
+      context 'when no results' do
+        before do
+          Guardian.any_instance.stubs(:can_see_employee?)
+          .returns(true)
+          Alerts::Employee
+          .any_instance.stubs(:risk_insurance_expired)
+          .returns(employees_result_empty)
+        end
+        it 'succeeds' do
+          xhr :get, :employees,
+              organization_id: abc_organization.id,
+              alert_type: Alerts::Employee.types[:risk_insurance_expired]
+          response.should be_success
+          parsed = JSON(response.body)
+          parsed['data'].length.should == 0
+          parsed['meta']['current_page'].should == nil
+          parsed['meta']['total_items'].should == 0
+        end
       end
     end
   end
