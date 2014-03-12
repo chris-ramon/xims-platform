@@ -1,6 +1,8 @@
 <!-- HEADER -->
-<div class="row">
+<div ng-controller="EmployeeListHeaderCtrl" class="row">
   <h3 class="col-xs-2 content-title">Trabajadores</h3>
+  <small>
+    <a ng-show="EmployeeAlertsService.filterApplied" ng-click="clearFilter()" id="empFilterMessage" href="" class="">Limpiar filtro / Ver todos</a></small>
   <div class="col-xs-10">
     <div class="pull-right">
       <button class="btn btn-primary">Importar Trabajadores</button>
@@ -10,7 +12,7 @@
 <!-- END HEADER -->
 
 <!-- QUICK FILTERING -->
-<div class="row">
+<div ng-controller="EmployeeListFiltersCtrl" class="row">
   <div class="col-xs-12">
     <div class="table moneyBar" id="uniqName_46_2" widgetid="uniqName_46_2">
       <div class="tableRow" data-dojo-attach-point="_tableBarRow">
@@ -20,13 +22,17 @@
             <div class="table">
               <div class="tableRow">
                 <div class="tableCell">
-                  <div id="riskInsuranceExpiredBox"
-                       ng-click="setEmployeesFiltered(employeeAlertsType.riskInsuranceExpired)"
+                  <div id="riskInsuranceExpiredBtn"
+                       ng-click="setEmployeesFiltered(EmployeeAlertsService.riskInsuranceExpired)"
                        class="box estimates">
                     <div class="subbox">
                       <span class="amount" data-dojo-attach-point="_amount">
-                        <i ng-hide="employeesRiskInsuranceExpired.data" class="fa fa-spinner fa-spin fa-1x"></i>
-                        {{ employeesRiskInsuranceExpired.meta.total_items }}  Trabajadores</span>&nbsp;
+                        <i ng-hide="EmployeeAlertsService.riskInsuranceExpired.meta" class="fa fa-spinner fa-spin fa-1x"></i>
+                        {{ EmployeeAlertsService.riskInsuranceExpired.meta.total_items }}
+                        <ng-pluralize count="EmployeeAlertsService.riskInsuranceExpired.data.length"
+                                      when="{'0': 'Trabajadores', '1': 'Trabajador', 'other': 'Trabajadores'}">
+                        </ng-pluralize>
+                      </span>&nbsp;
                       <div>
                         <span>CON SCTR VENCIDO</span>
                       </div>
@@ -41,9 +47,18 @@
           <div class="bucket unpaid_tab" id="dijit__WidgetsInTemplateMixin_8" widgetid="dijit__WidgetsInTemplateMixin_8">
             <div class="header" data-dojo-attach-point="_label">EXAMEN MÉDICO VENCIDO</div>
             <div class="table">
-              <div class="tableRow" data-dojo-attach-point="_bucketBarRow"><div class="tableCell"><div class="box unpaid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_8" widgetid="uniqName_45_8">
+              <div class="tableRow" data-dojo-attach-point="_bucketBarRow">
+                <div class="tableCell">
+                  <div ng-click="setEmployeesFiltered(EmployeeAlertsService.medicalExamExpired)"
+                       class="box unpaid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_8" widgetid="uniqName_45_8">
                 <div class="subbox">
-                  <span class="amount" data-dojo-attach-point="_amount">0 Trabajadores</span>&nbsp;
+                  <span class="amount" data-dojo-attach-point="_amount">
+                    <i ng-hide="EmployeeAlertsService.medicalExamExpired.meta" class="fa fa-spinner fa-spin fa-1x"></i>
+                    {{ EmployeeAlertsService.medicalExamExpired.meta.total_items }}
+                    <ng-pluralize count="EmployeeAlertsService.medicalExamExpired.data.length"
+                                  when="{'0': 'Trabajadores', '1': 'Trabajador', 'other': 'Trabajadores'}">
+                    </ng-pluralize>
+                  </span>&nbsp;
                   <div>
                     <span>CON EXAMEN MÉDICO VENCIDO</span>&nbsp;
                   </div>
@@ -56,9 +71,18 @@
           <div class="bucket paid_tab" id="dijit__WidgetsInTemplateMixin_9" widgetid="dijit__WidgetsInTemplateMixin_9">
             <div class="header" data-dojo-attach-point="_label">SIN INDUCCIÓN</div>
             <div class="table">
-              <div ng-click="me=true;" class="tableRow"><div class="tableCell"><div class="box paid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_10" widgetid="uniqName_45_10">
+              <div class="tableRow">
+                <div class="tableCell">
+                  <div ng-click="setEmployeesFiltered(EmployeeAlertsService.noInductionTraining)"
+                       class="box paid" data-dojo-attach-point="_self" data-dojo-attach-event="onclick:onClick" id="uniqName_45_10" widgetid="uniqName_45_10">
                 <div class="subbox">
-                  <span class="amount" data-dojo-attach-point="_amount">1 Trabajador</span>&nbsp;
+                  <span class="amount" data-dojo-attach-point="_amount">
+                    <i ng-hide="EmployeeAlertsService.noInductionTraining.meta" class="fa fa-spinner fa-spin fa-1x"></i>
+                    {{ EmployeeAlertsService.noInductionTraining.meta.total_items }}
+                  <ng-pluralize count="EmployeeAlertsService.noInductionTraining.data.length"
+                                when="{'0': 'Trabajadores', '1': 'Trabajador', 'other': 'Trabajadores'}">
+                  </ng-pluralize>
+                  </span>&nbsp;
                   <div>
                     <span data-dojo-attach-point="_count">SIN INDUCCIÓN</span>&nbsp;
                   </div>
