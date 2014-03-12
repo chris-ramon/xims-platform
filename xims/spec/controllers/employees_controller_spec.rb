@@ -19,9 +19,7 @@ describe EmployeesController do
       end
       context 'when user do not belongs to the given organization' do
         it 'fails' do
-          chris_as_employee.organization = other_organization
-          chris_as_employee.save
-          xhr :get, :index, organization_id: abc_organization.id
+          xhr :get, :index, organization_id: other_organization.id
           response.should_not be_success
         end
       end
@@ -66,61 +64,27 @@ describe EmployeesController do
     end
 
     describe 'when logged in' do
+      let(:abc_organization) { create(:organization) }
+      let(:other_organization) { create(:organization) }
+      let(:roger_as_employee) { create(:employee, organization: abc_organization) }
+      let(:roger_as_user) { create(:user, employee: roger_as_employee) }
+      let(:chris_as_employee) { create(:employee, organization: other_organization) }
+      let(:luis_as_employee) { create(:employee, organization: abc_organization) }
       before do
-        @organization = create(:organization)
-
-        @chris_as_employee = create(:employee, organization: @organization)
-        roger_as_employee = create(:employee, organization: @organization)
-
-        roger_as_user = create(:user_with_employee, employee: roger_as_employee)
         sign_in roger_as_user
       end
       describe 'user does not belong to the organization' do
         it 'fails' do
-          @chris_as_employee.organization = create(:organization)
-          @chris_as_employee.save
-          xhr :get, :show, employee_id: @chris_as_employee.id
+          xhr :get, :show, employee_id: chris_as_employee.id
           response.should_not be_success
         end
       end
       describe 'user belongs to the organization' do
         it 'succeed' do
-          xhr :get, :show, employee_id: @chris_as_employee.id
+          xhr :get, :show, employee_id: luis_as_employee.id
           response.should be_success
         end
       end
     end
   end
-
-  #describe 'alerts' do
-  #  context 'when user logged in' do
-  #    let(:abc_organization) { create(:organization) }
-  #    let(:chris_as_employee) { create(:employee, organization: abc_organization) }
-  #    let(:chris_as_user) { create(:user, employee: chris_as_employee) }
-  #    before do
-  #      sign_in chris_as_user
-  #    end
-  #    context 'user belongs to the organization' do
-  #      it 'succeeds' do
-  #        xhr :get, :alerts, organization_id: abc_organization
-  #        response.should be_success
-  #      end
-  #      it 'returns the correct data' do
-  #        xhr :get, :alerts, organization_id: abc_organization
-  #        parsed = JSON(response.body)
-  #        parsed['expired_risk_insurance']['total'].should == 1
-  #        parsed['expired_risk_insurance']['data'].should == 1
-  #        parsed['expired_medical_exam']['total'].should == 1
-  #        parsed['without_induction']['total'].should == 3
-  #      end
-  #    end
-  #    context 'user does not belong to the organization' do
-  #      other_organization = create(:organization)
-  #      chris_as_employee.organization = other_organization
-  #      chris_as_employee.save
-  #      xhr :get, :alerts, organization_id: other_organization.id
-  #      response.should_not be_success
-  #    end
-  #  end
-  #end
 end
