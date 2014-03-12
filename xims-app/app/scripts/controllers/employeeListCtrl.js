@@ -3,9 +3,9 @@
 angular.module('ximsApp')
   .controller('EmployeeListCtrl',
     ['$scope', '$filter', '$rootScope', 'ModuleService', 'UserService',
-      'EmployeeService', 'EmployeeAlertsService', 'AppSettings',
+      'EmployeeService', 'AppSettings',
       function($scope, $filter, $rootScope, ModuleService, UserService,
-               EmployeeService, EmployeeAlertsService, AppSettings) {
+               EmployeeService, AppSettings) {
         ModuleService.name = ModuleService.EMPLOYEE;
         $scope.EmployeeService = EmployeeService;
 
@@ -31,4 +31,14 @@ angular.module('ximsApp')
         $rootScope.$on('userLogged', function() { $scope.setEmployees(); });
         // when user visits the module
         if(UserService.currentUser) { $scope.setEmployees(); }
-      }]);
+      }])
+  .controller('EmployeeListHeaderCtrl',
+    ['$scope', 'EmployeeAlertsService', 'EmployeeService',
+      function($scope, EmployeeAlertsService, EmployeeService) {
+        $scope.EmployeeAlertsService = EmployeeAlertsService;
+        $scope.clearFilter = function() {
+          EmployeeService.getAll().success((function() {
+            $scope.EmployeeAlertsService.filterApplied = false;
+          }));
+        };
+  }]);

@@ -18,7 +18,7 @@ angular.module('ximsApp')
         method: 'GET',
         url: self.getAllUrl(),
         params: {page: page}
-      }).success(employeesSuccess);
+      }).success(self.employeesSuccess);
     };
 
     self.getAllUrl = function() {
@@ -36,14 +36,15 @@ angular.module('ximsApp')
         url: url,
         method: 'GET',
         params: {term: term, page: _page}
-      }).success(employeesSuccess);
+      }).success(self.employeesSuccess);
     };
 
-    function employeesSuccess(response) {
+    self.employeesSuccess = function(response) {
       self.employees = response.data;
       self.employeesCache = response.data;
       self.totalItems = response.meta.total_items;
       self.currentPage = response.meta.current_page;
       self.loadingEmployees = false;
-    }
+    };
+
   }]);
