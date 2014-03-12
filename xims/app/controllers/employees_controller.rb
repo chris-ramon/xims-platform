@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    params.permit(:page)
+    params.permit(:organization_id, :page)
 
     finder = Employee
       .with_individual

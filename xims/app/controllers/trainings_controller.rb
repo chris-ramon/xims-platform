@@ -2,7 +2,7 @@ class TrainingsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    params.permit(:page)
+    params.permit(:organization_id, :page)
 
     finder = Training
       .where(organization_id: params[:organization_id])
@@ -39,7 +39,7 @@ class TrainingsController < ApplicationController
           :organization_id,
           :responsible_id, :trainer_id, :training_type,
           :training_date, :training_hours, :topic,
-          {employees: [:id]}]
+          {employees: [:id, :observations]}]
       params.require(:training).permit(*permitted)
     end
 end
