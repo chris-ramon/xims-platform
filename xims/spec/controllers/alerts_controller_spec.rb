@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'ostruct'
 
 
 describe AlertsController do
@@ -13,11 +12,9 @@ describe AlertsController do
     let(:roger_as_employee) { create(:employee,
                                    individual: roger_as_individual,
                                    organization: other_organization) }
-    let(:employees_result) { {employees: [mock_model(Employee)], total_items: 10} }
+    let(:employees_result) { {employees: [Employee.new], total_items: 10} }
     let(:employees_result_empty) { {employees: [], total_items: 0} }
-    before do
-      sign_in chris_as_user
-    end
+    let!(:user) { sign_in chris_as_user }
     context 'when logged in and not allowed' do
       before do
         Guardian.any_instance.stubs(:can_see_employee?)
@@ -36,11 +33,9 @@ describe AlertsController do
     context 'when logged in and allowed' do
       context 'when there are results' do
         before do
-          Guardian.any_instance.stubs(:can_see_employee?)
-          .returns(true)
-          Alerts::Employee
-          .any_instance.stubs(:risk_insurance_expired)
-          .returns(employees_result)
+          Guardian.any_instance.stubs(:can_see_employee?).returns(true)
+          Alerts::Employee.any_instance.stubs(:risk_insurance_expired)
+            .returns(employees_result)
         end
         it 'succeeds' do
           xhr :get, :employees,
