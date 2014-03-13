@@ -5,3 +5,4 @@ xims-platform.iml
 .ruby-gemset
 xims/xims.iml
 xims-app/xims-app.iml
+xims/lib/tasks/tests.log
