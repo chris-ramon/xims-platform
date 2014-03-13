@@ -2,14 +2,14 @@
 
 
 angular.module('ximsApp').controller('EmployeeListFiltersCtrl',
-  ['$scope', '$rootScope', 'EmployeeAlertsService', 'EmployeeService', 'UserService', 'AppSettings',
-    function($scope, $rootScope, EmployeeAlertsService, EmployeeService, UserService, AppSettings) {
+  ['$scope', '$rootScope', 'EmployeeAlertsService', 'EmployeeService',
+    'UserService',
+    function($scope, $rootScope, EmployeeAlertsService, EmployeeService,
+             UserService) {
       $scope.EmployeeAlertsService = EmployeeAlertsService;
 
       $scope.setEmployeesFiltered = function(filter, page) {
-        EmployeeService.loadingEmployees = true;
-        EmployeeAlertsService.getAll(filter, page)
-          .success(EmployeeService.employeesSuccess);
+        EmployeeAlertsService.getAll(filter, page, true);
       };
 
       $scope.init = function() {

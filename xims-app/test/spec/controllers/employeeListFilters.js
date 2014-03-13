@@ -2,7 +2,8 @@
 
 
 describe('EmployeeListFiltersCtrl', function () {
-  var $httpBackend, $controller, $rootScope, $scope, EmployeeAlertsService, EmployeeService;
+  var $httpBackend, $controller, $rootScope,
+    $scope, EmployeeAlertsService, EmployeeService;
 
   beforeEach(function() {
     module('ui.bootstrap');
@@ -37,6 +38,7 @@ describe('EmployeeListFiltersCtrl', function () {
         .toEqual(Fixtures.alertEmployees.data);
       expect(EmployeeService.employeesCache)
         .toEqual(Fixtures.alertEmployees.data);
+      expect(EmployeeAlertsService.filterApplied).toBe(true);
     });
   });
   describe('.updateFilters', function() {
@@ -56,6 +58,7 @@ describe('EmployeeListFiltersCtrl', function () {
       expect(EmployeeAlertsService.medicalExamExpired['data']).toBeDefined();
       expect(EmployeeAlertsService.noInductionTraining['meta']).toBeDefined();
       expect(EmployeeAlertsService.noInductionTraining['data']).toBeDefined();
+      expect(EmployeeAlertsService.filterApplied).toBe(false);
     });
     });
 });
