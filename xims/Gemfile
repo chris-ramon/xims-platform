@@ -57,4 +57,5 @@ group :development, :test do
   gem 'mocha'
   gem 'hirb'
   gem 'rack-cors'
+  gem 'colorize'
 end
