@@ -3,9 +3,9 @@
 angular.module('ximsApp')
   .controller('EmployeeListCtrl',
     ['$scope', '$filter', '$rootScope', 'ModuleService', 'UserService',
-      'EmployeeService', 'AppSettings',
+      'EmployeeService', 'EmployeeAlertsService', 'AppSettings',
       function($scope, $filter, $rootScope, ModuleService, UserService,
-               EmployeeService, AppSettings) {
+               EmployeeService, EmployeeAlertsService, AppSettings) {
         ModuleService.name = ModuleService.EMPLOYEE;
         $scope.EmployeeService = EmployeeService;
 
@@ -15,8 +15,12 @@ angular.module('ximsApp')
         $scope.searchText = "";
 
         $scope.setEmployees = function(page) {
-          if($scope.searchText)
+          if($scope.searchText) {
+            EmployeeAlertsService.filterApplied = false;
             EmployeeService.search($scope.searchText, page);
+          }
+          else if(EmployeeAlertsService.filterApplied)
+            EmployeeAlertsService.getAll(EmployeeAlertsService.currentFilter, page, true);
           else
             EmployeeService.getAll(page);
         }

@@ -6,6 +6,7 @@ angular.module('ximsApp')
     function($http, UserService, EmployeeService) {
       var self = this;
       self.filterApplied = false;
+      self.currentFilter = null;
 
       self.riskInsuranceExpired = {id: 1};
       self.medicalExamExpired = {id: 2};
@@ -17,6 +18,7 @@ angular.module('ximsApp')
       ];
 
       self.getAll = function(filter, page, filterApplied) {
+        self.currentFilter = filter;
         EmployeeService.loadingEmployees = true;
         return $http({
           method: 'GET',
