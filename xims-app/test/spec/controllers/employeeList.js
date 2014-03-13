@@ -2,7 +2,8 @@
 
 
 describe('EmployeeListCtrl', function () {
-  var $httpBackend, $controller, $rootScope, $scope, EmployeeService;
+  var $httpBackend, $controller, $rootScope, $scope,
+    EmployeeService;
 
   beforeEach(function() {
     module('ui.bootstrap');
@@ -37,7 +38,7 @@ describe('EmployeeListCtrl', function () {
   });
   describe('.watch("searchText")', function() {
     beforeEach(inject(function($injector) {
-      var EmployeeService = $injector.get('EmployeeService');
+      //var EmployeeService = $injector.get('EmployeeService');
       EmployeeService.employees = Fixtures.employeesIndexFilter.data;
       EmployeeService.employeesCache = Fixtures.employeesIndexFilter.data;
     }));
