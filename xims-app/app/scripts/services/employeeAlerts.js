@@ -37,13 +37,15 @@ angular.module('ximsApp')
       };
 
       self.search = function(term, page) {
+        EmployeeService.loadingEmployees = true;
         var _page = page || 1;
         var url = 'http://0.0.0.0:3000/search/employees';
         return $http({
           url: url,
           method: 'GET',
-          params: {term: term, page: _page}
-        });
+          params: {term: term, page: _page,
+            alert_type: self.currentFilter.id}
+        }).success(EmployeeService.employeesSuccess);
       };
 
       function afterGetAll(response, filter, filterApplied) {
