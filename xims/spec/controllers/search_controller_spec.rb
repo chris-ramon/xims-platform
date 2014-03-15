@@ -49,6 +49,48 @@ describe SearchController do
           parsed['meta']['current_page'].should == 1
         end
       end
+      context 'when search by any term and alert type' do
+        context 'when alert type have no results' do
+          it 'fails' do
+            lambda {
+              xhr :get, :employees,
+                  term: chris_as_individual.id,
+                  alert_type: Alerts::Employee.types[:risk_insurance_expired]
+            }.should raise_error(Xims::NotFound)
+          end
+        end
+        context 'when alert type have results' do
+          context 'when search params match' do
+            before do
+              Alerts::Employee.any_instance.stubs(:get_by_alert_type)
+              .returns([chris_as_individual.id])
+            end
+            it 'returns data' do
+              xhr :get, :employees,
+                  term: chris_as_individual.id,
+                  alert_type: Alerts::Employee.types[:risk_insurance_expired]
+              response.should be_success
+              parsed = JSON(response.body)
+              parsed['data'].length.should == 1
+            end
+          end
+          context 'when search params do not match' do
+            let(:random_employee) { create(:employee) }
+            before do
+              Alerts::Employee.any_instance.stubs(:get_by_alert_type)
+              .returns([random_employee.id])
+            end
+            it 'returns no data' do
+              xhr :get, :employees,
+                  term: chris_as_individual.id,
+                  alert_type: Alerts::Employee.types[:risk_insurance_expired]
+              response.should be_success
+              parsed = JSON(response.body)
+              parsed['data'].length.should == 0
+            end
+          end
+        end
+      end
     end
     context 'when user logged in and not shares organization id' do
       let(:abc_organization) { create(:organization) }
@@ -72,5 +114,9 @@ describe SearchController do
         parsed['data'].length.should == 0
       end
     end
+  end
+
+  describe '' do
+
   end
 end
