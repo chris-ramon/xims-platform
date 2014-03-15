@@ -7,7 +7,10 @@ module Alerts
     end
 
     # Parameters
-    #   opts :  {page: int}
+    #   opts :  {page: int, only_ids: boolean}
+    #
+    #   When *only_ids* is true
+    #     it will only return the ids of the individuals.
     #
     def initialize(organization, opts={})
       @organization = organization
@@ -41,6 +44,11 @@ module Alerts
       employees_result(employees)
     end
 
+    def get_by_alert_type(alert_type)
+      method_name = Alerts::Employee.types[alert_type.to_i].to_s
+      send(method_name)
+    end
+
     private
     def employees(finder)
       ids = finder.map {|f| f.employee_id }
@@ -49,8 +57,13 @@ module Alerts
         .page(@opts[:page])
       employees_result(employees)
     end
+
     def employees_result(employees)
-      {employees: employees, total_items: employees.total_count}
+      if @opts[:only_ids]
+        employees.map {|e| e.individual.id }
+      else
+        {employees: employees, total_items: employees.total_count}
+      end
     end
   end
 end

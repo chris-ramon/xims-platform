@@ -6,11 +6,10 @@ class AlertsController < ApplicationController
     data = []
     meta = {current_page: params[:page], total_items: 0}
     organization = Organization.where(id: params[:organization_id]).first
-    alerts_employee = Alerts::Employee.new(organization, params)
+    employee_alerts = Alerts::Employee.new(organization, params)
 
     if Alerts::Employee.types[params[:alert_type].to_i].present?
-      method_name = Alerts::Employee.types[params[:alert_type].to_i].to_s
-      employees_result = alerts_employee.send(method_name)
+      employees_result = employee_alerts.get_by_alert_type(params[:alert_type])
     else
       render json: error_json, status: :unprocessable_entity
     end
