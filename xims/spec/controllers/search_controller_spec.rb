@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SearchController do
-  describe 'search' do
+  describe 'employees' do
     context 'when user logged in and is allowed' do
       let(:abc_organization) { create(:organization) }
       let(:chris_as_individual) { create(:individual, first_name: 'chris') }
