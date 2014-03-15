@@ -60,7 +60,7 @@ module Alerts
 
     def employees_result(employees)
       if @opts[:only_ids]
-        employees.map {|e| e.individual.id }
+        employees.map {|e| e.individual_id }
       else
         {employees: employees, total_items: employees.total_count}
       end
