@@ -1,10 +1,11 @@
 describe('employees page', function() {
-  var signInPage = require('./sign_in_page.js'),
-    signOutPage = require('./sign_out_page.js'),
-    employeesPage = require('./employees_page.js');
+  var signInPage = require('../pages/sign_in_page.js'),
+    signOutPage = require('../pages/sign_out_page.js'),
+    employeesPage = require('../pages/employees_page.js');
 
   it('beforeAll', function() {
     signInPage.signIn();
+    browser.waitForAngular();
   });
 
   it('should list employees', function() {

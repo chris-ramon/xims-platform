@@ -1,6 +1,6 @@
 describe('Sign In Page', function() {
   it('should sign in user', function() {
-    var signInPage = require('./sign_in_page.js');
+    var signInPage = require('../pages/sign_in_page.js');
     signInPage.get();
     signInPage.setEmail('chris@gmail.com');
     signInPage.setPassword('246813579');
@@ -12,7 +12,7 @@ describe('Sign In Page', function() {
 
 describe('Sign Out Page', function() {
   it('should sign out user', function() {
-    var signOutPage = require('./sign_out_page.js');
+    var signOutPage = require('../pages/sign_out_page.js');
     signOutPage.get();
     signOutPage.signOut();
     expect(browser.getCurrentUrl()).toEqual('http://0.0.0.0:9000/#/');
