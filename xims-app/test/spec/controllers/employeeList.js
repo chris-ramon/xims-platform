@@ -15,6 +15,10 @@ describe('EmployeeListCtrl', function () {
       .respond(Fixtures.employeesIndex);
     $httpBackend.whenGET('http://0.0.0.0:3000/search/employees?page=1&term=45996130')
       .respond(Fixtures.searchEmployees);
+    $httpBackend.whenGET('http://0.0.0.0:3000/search/employees?alert_type=1&page=1&term=45996137')
+      .respond(Fixtures.alertEmployees);
+    $httpBackend.whenGET('http://0.0.0.0:3000/1/employees/alerts/1/')
+      .respond(Fixtures.employeesIndexFilter);
 
     $controller = $injector.get('$controller');
     $rootScope = $injector.get('$rootScope');
@@ -34,6 +38,35 @@ describe('EmployeeListCtrl', function () {
         .toEqual(Fixtures.employeesIndex.data);
       expect($scope.EmployeeService.employeesCache)
         .toEqual(Fixtures.employeesIndex.data);
+    });
+    describe('when filterApplied', function() {
+      var EmployeeAlertsService;
+      beforeEach(inject(function($injector) {
+        EmployeeAlertsService = $injector.get('EmployeeAlertsService');
+        EmployeeAlertsService.filterApplied = true;
+        EmployeeAlertsService.currentFilter = EmployeeAlertsService.riskInsuranceExpired;
+        spyOn(EmployeeAlertsService, 'getAllUrl')
+          .andReturn('http://0.0.0.0:3000/1/employees/alerts/1/');
+      }));
+      it('should set employees', function() {
+        $scope.setEmployees(null);
+        $httpBackend.flush();
+        expect(EmployeeService.employees, Fixtures.employeesIndexFilter.data);
+      });
+    });
+    describe('when filterApplied and searchText', function() {
+      var EmployeeAlertsService;
+      beforeEach(inject(function($injector) {
+        EmployeeAlertsService = $injector.get('EmployeeAlertsService');
+        EmployeeAlertsService.filterApplied = true;
+        EmployeeAlertsService.currentFilter = EmployeeAlertsService.riskInsuranceExpired;
+      }));
+      it('should set employees', function() {
+        $scope.$apply(function() { $scope.searchText = '45996137'; });
+        $scope.setEmployees(null);
+        $httpBackend.flush();
+        expect(EmployeeService.employees, Fixtures.alertEmployees.data);
+      });
     });
   });
   describe('.watch("searchText")', function() {

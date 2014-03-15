@@ -15,10 +15,12 @@ angular.module('ximsApp')
         $scope.searchText = "";
 
         $scope.setEmployees = function(page) {
-          if($scope.searchText) {
+          if($scope.searchText && !EmployeeAlertsService.filterApplied) {
             EmployeeAlertsService.filterApplied = false;
             EmployeeService.search($scope.searchText, page);
           }
+          else if($scope.searchText && EmployeeAlertsService.filterApplied)
+            EmployeeAlertsService.search($scope.searchText, page);
           else if(EmployeeAlertsService.filterApplied)
             EmployeeAlertsService.getAll(EmployeeAlertsService.currentFilter,
               page, true);
