@@ -20,7 +20,8 @@ angular.module('ximsApp')
             EmployeeService.search($scope.searchText, page);
           }
           else if(EmployeeAlertsService.filterApplied)
-            EmployeeAlertsService.getAll(EmployeeAlertsService.currentFilter, page, true);
+            EmployeeAlertsService.getAll(EmployeeAlertsService.currentFilter,
+              page, true);
           else
             EmployeeService.getAll(page);
         }

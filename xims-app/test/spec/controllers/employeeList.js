@@ -37,8 +37,7 @@ describe('EmployeeListCtrl', function () {
     });
   });
   describe('.watch("searchText")', function() {
-    beforeEach(inject(function($injector) {
-      //var EmployeeService = $injector.get('EmployeeService');
+    beforeEach(inject(function() {
       EmployeeService.employees = Fixtures.employeesIndexFilter.data;
       EmployeeService.employeesCache = Fixtures.employeesIndexFilter.data;
     }));
