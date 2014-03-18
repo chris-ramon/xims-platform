@@ -16,4 +16,12 @@ class Employee < ActiveRecord::Base
               'individuals.first_name', 'individuals.middle_name',
               'individuals.last_name', 'individuals.second_last_name')
   }
+
+  def risk_insurance
+    risk_insurances.where(active: true).first
+  end
+
+  def medical_exam
+    medical_exams.where(active: true).first
+  end
 end
