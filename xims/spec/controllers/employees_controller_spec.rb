@@ -69,7 +69,7 @@ describe EmployeesController do
       let(:roger_as_employee) { create(:employee, organization: abc_organization) }
       let(:roger_as_user) { create(:user, employee: roger_as_employee) }
       let(:chris_as_employee) { create(:employee, organization: other_organization) }
-      let(:luis_as_employee) { create(:employee, organization: abc_organization) }
+      let(:luis_as_employee) { create(:employee_with_entities, organization: abc_organization) }
       before do
         sign_in roger_as_user
       end
