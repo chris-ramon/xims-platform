@@ -5,6 +5,7 @@ Xims::Application.routes.draw do
   end
   get '/:organization_id/employees', to: 'employees#index', constraints: {organization_id: /\d+/}
   get '/employees/:employee_id', to: 'employees#show', constraints: {employee_id: /\d+/}
+  put '/employees/:employee_id', to: 'employees#update', constraints: {employee_id: /\d+/}
 
   get '/:organization_id/trainings', to: 'trainings#index', constraints: {organization_id: /\d+/}
   post '/:organization_id/trainings', to: 'trainings#create', constraints: {organization_id: /\d+/}
