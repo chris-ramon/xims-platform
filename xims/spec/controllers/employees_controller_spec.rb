@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe EmployeesController do
+  let(:abc_organization) { create(:organization) }
+  let(:other_organization) { create(:organization) }
+  let(:roger_as_employee) { create(:employee, organization: abc_organization) }
+  let(:roger_as_user) { create(:user, employee: roger_as_employee) }
+  let(:chris_as_employee) { create(:employee, organization: other_organization) }
+  let(:luis_as_employee) { create(:employee_with_entities, organization: abc_organization) }
 
   describe 'index' do
     it "won't allow see the list of employees when user is not logged in" do
@@ -64,12 +70,6 @@ describe EmployeesController do
     end
 
     describe 'when logged in' do
-      let(:abc_organization) { create(:organization) }
-      let(:other_organization) { create(:organization) }
-      let(:roger_as_employee) { create(:employee, organization: abc_organization) }
-      let(:roger_as_user) { create(:user, employee: roger_as_employee) }
-      let(:chris_as_employee) { create(:employee, organization: other_organization) }
-      let(:luis_as_employee) { create(:employee_with_entities, organization: abc_organization) }
       before do
         sign_in roger_as_user
       end
@@ -84,6 +84,39 @@ describe EmployeesController do
           xhr :get, :show, employee_id: luis_as_employee.id
           response.should be_success
         end
+      end
+    end
+  end
+
+  describe 'update' do
+    let(:expiration_date) { Time.now }
+    before do
+      sign_in roger_as_user
+    end
+    describe 'when logged in and not allowed' do
+      it 'fails' do
+        xhr :put, :update, employee_id: chris_as_employee.id,
+            employee: {risk_insurance: {expiration_date: expiration_date},
+                       medical_exam: {expiration_date: expiration_date}}
+        response.should_not be_success
+      end
+    end
+    describe 'when logged in and allowed' do
+      it 'succeeds' do
+        xhr :put, :update, employee_id: luis_as_employee.id,
+            employee: {risk_insurance: {expiration_date: expiration_date},
+                       medical_exam: {expiration_date: expiration_date}}
+        response.should be_success
+        parsed = JSON(response.body)
+        parsed['employee']['risk_insurance']['expiration_date'].to_date.should == expiration_date.to_date
+        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.to_date
+      end
+      it 'should succeeds when updating only one attribute' do
+        xhr :put, :update, employee_id: luis_as_employee.id,
+            employee: {medical_exam: {expiration_date: expiration_date}}
+        response.should be_success
+        parsed = JSON(response.body)
+        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.to_date
       end
     end
   end
