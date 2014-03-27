@@ -1,7 +1,8 @@
+
 <!-- HEADER -->
 <div class="row spacedRow">
-  <h3 class="col-xs-2 content-title">{{ employee.displayName }}</h3>
-  <div class="col-xs-10">
+  <h3 class="col-xs-8 content-title">{{ employee.display_name }}</h3>
+  <div class="col-xs-4">
     <div class="pull-right">
       <a ng-href="#/trabajadores/{{ employee.id }}/editar" class="btn btn-primary">Editar información</a>
     </div>
@@ -12,13 +13,13 @@
 <!-- PERSONAL INFORMATION -->
 <div class="row spacedRow">
   <div class="col-xs-4">
-    <p><strong>N° DNI:</strong> {{ employee.dni }}</p>
+    <p><strong>N° DNI:</strong> {{ employee.id_number }}</p>
   </div>
   <div class="col-xs-4">
     <p><strong>Edad:</strong> {{ employee.age }}</p>
   </div>
   <div class="col-xs-4">
-    <p><strong>Área:</strong> {{ employee.workingArea }}</p>
+    <p><strong>Área:</strong> {{ employee.workspace }}</p>
   </div>
 </div>
 <div class="row spacedRow">
@@ -35,8 +36,8 @@
   </div>
 </div>
 <div class="row spacedRow">
-  <div class="col-xs-4">
-    <p><strong>Fecha de Vencimiento: </strong>{{ employee.riskInsurance.expirationDate }}</p>
+  <div class="col-xs-8">
+    <p><strong>Fecha de Vencimiento: </strong>{{ employee.risk_insurance.expiration_date | date:'MM/dd/yyyy @ h:mma' }}</p>
   </div>
 </div>
 <!-- END SCTR -->
@@ -48,8 +49,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-4">
-    <p><strong>Fecha de Vencimiento: </strong>{{ employee.medicalExamination.expirationDate }}</p>
+  <div class="col-xs-8">
+    <p><strong>Fecha de Vencimiento: </strong>{{ employee.medical_exam.expiration_date | date:'MM/dd/yyyy @ h:mma' }}</p>
   </div>
 </div>
 <!-- END MEDICAL EXAMINATION -->
