@@ -136,4 +136,11 @@ body {
 .sg-pagination a {
     cursor: pointer;
 }
+.date-row .dropdown-menu {
+    z-index: 9999;
+}
+.date-row .btn-group button:nth-child(2),
+.date-row .btn-group button:nth-child(3){
+    display: none;
+}
 /* end custom styling */
