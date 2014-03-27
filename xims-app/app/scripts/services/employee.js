@@ -47,4 +47,26 @@ angular.module('ximsApp')
       self.loadingEmployees = false;
     };
 
+    self.getOne = function(employeeId) {
+      return $http({
+        method: 'GET',
+        url: self.getOneUrl(employeeId)
+      });
+    };
+
+    self.getOneUrl = function(employeeId) {
+      return 'http://0.0.0.0:3000/employees/:employee_id'
+        .replace(':employee_id', employeeId);
+    };
+
+    self.updateOne = function(employeeId, data) {
+      return $http({
+        url: self.getOneUrl(employeeId),
+        method: 'PUT',
+        data: {
+          risk_insurance: data['risk_insurance'],
+          medical_exam: data['medical_exam']
+        }
+      });
+    };
   }]);
