@@ -1,4 +1,5 @@
 class EmployeeSerializer < ApplicationSerializer
+
   attributes :id,
              :id_number,
              :age,
@@ -42,9 +43,9 @@ class EmployeeSerializer < ApplicationSerializer
     object.occupation.name
   end
   def risk_insurance
-    object.risk_insurance
+    object.risk_insurance ? object.risk_insurance : {}
   end
   def medical_exam
-    object.medical_exam
+    object.medical_exam ? object.medical_exam : {}
   end
 end
