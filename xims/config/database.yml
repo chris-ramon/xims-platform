@@ -36,5 +36,5 @@ production:
   database: xims_production
   pool: 5
   timeout: 5000
-  host_names:
-    - "localhost"
+  username: xims
+  password:
