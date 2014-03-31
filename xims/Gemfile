@@ -58,4 +58,10 @@ group :development, :test do
   gem 'hirb'
   gem 'rack-cors'
   gem 'colorize'
+  gem 'foreman'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'unicorn'
 end
