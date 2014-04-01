@@ -1,4 +1,6 @@
-require 'colorize'
+unless Rails.env.production?
+  require 'colorize'
+end
 
 REPO_ROOT = File.dirname(__FILE__)
 TESTS_LOG = File.join(REPO_ROOT, 'tests.log')
