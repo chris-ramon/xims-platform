@@ -38,5 +38,17 @@ module Xims
       # turn off csrf just for development purposes
       config.action_controller.allow_forgery_protection = false
     end
+
+    if Rails.env.production?
+      config.middleware.insert_before Warden::Manager, Rack::Cors do
+        allow do
+          origins 'segguro.herokuapp.com', 'localhost:9000'
+          resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
+        end
+      end
+
+      # turn off csrf just for development purposes
+      config.action_controller.allow_forgery_protection = false
+    end
   end
 end
