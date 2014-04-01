@@ -49,13 +49,13 @@ gem 'devise' #auth
 gem 'active_model_serializers' #serialization
 gem 'searchkick' #search
 gem 'pg'
+gem 'rack-cors'
+gem 'factory_girl_rails'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'mocha'
   gem 'hirb'
-  gem 'rack-cors'
   gem 'colorize'
   gem 'foreman'
 end
