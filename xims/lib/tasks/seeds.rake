@@ -12,9 +12,13 @@ namespace :seeds do
     organization = FactoryGirl.create(:organization, name: args.organization_name)
     50.times { FactoryGirl.create(:employee, organization: organization) }
   end
-  task 'user', [:organization_id, :email, :password] => :environment do |t, args|
+  task 'user', [:organization_id, :email, :password, :id_number, :first_name,
+                :last_name, :second_last_name, :age] => :environment do |t, args|
     organization = Organization.where(id: args.organization_id).first
-    employee = FactoryGirl.create(:employee, organization: organization)
+    individual = FactoryGirl.create(:individual, id_number: args.id_number,
+                                    first_name: args.first_name, last_name: args.last_name,
+                                    second_last_name: args.second_last_name, age: args.age)
+    employee = FactoryGirl.create(:employee, organization: organization, individual: individual)
     user = User.create!({email: args.email,
                          password: args.password,
                          password_confirmation: args.password})
