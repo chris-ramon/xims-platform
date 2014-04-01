@@ -56,7 +56,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'mocha'
   gem 'hirb'
-  gem 'colorize', require: false
   gem 'foreman'
 end
 
