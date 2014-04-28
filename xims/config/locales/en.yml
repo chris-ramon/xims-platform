@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  training:
+    induction: 'Induction'
+    training: 'Training'
+    coaching: 'Coaching'
+    emergency_drill: 'Emergency Drill'

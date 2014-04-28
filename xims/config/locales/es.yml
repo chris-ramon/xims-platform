@@ -1,0 +1,6 @@
+es:
+  training:
+    induction: 'Inducción'
+    training: 'Capacitación'
+    coaching: 'Entrenamiento'
+    emergency_drill: 'Simulacro de Emergencia'
