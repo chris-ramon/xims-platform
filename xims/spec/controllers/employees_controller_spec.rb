@@ -108,15 +108,15 @@ describe EmployeesController do
                        medical_exam: {expiration_date: expiration_date}}
         response.should be_success
         parsed = JSON(response.body)
-        parsed['employee']['risk_insurance']['expiration_date'].to_date.should == expiration_date.to_date
-        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.to_date
+        parsed['employee']['risk_insurance']['expiration_date'].to_date.should == expiration_date.utc.to_date
+        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.utc.to_date
       end
       it 'should succeeds when updating only one attribute' do
         xhr :put, :update, employee_id: luis_as_employee.id,
             employee: {medical_exam: {expiration_date: expiration_date}}
         response.should be_success
         parsed = JSON(response.body)
-        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.to_date
+        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.utc.to_date
       end
     end
   end
