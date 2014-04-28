@@ -43,9 +43,9 @@ class EmployeeSerializer < ApplicationSerializer
     object.occupation.name
   end
   def risk_insurance
-    object.risk_insurance ? object.risk_insurance : {}
+    object.risk_insurance ? object.risk_insurance : {expiration_date: nil}
   end
   def medical_exam
-    object.medical_exam ? object.medical_exam : {}
+    object.medical_exam ? object.medical_exam : {expiration_date: nil}
   end
 end
