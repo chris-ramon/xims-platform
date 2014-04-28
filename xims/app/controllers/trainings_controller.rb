@@ -7,9 +7,14 @@ class TrainingsController < ApplicationController
     finder = Training
       .where(organization_id: params[:organization_id])
       .page(params[:page])
-    training = finder.first
-    guardian.ensure_can_see!(training)
-    render json: {data: finder, metadata: {page: params[:page].to_i, total_pages: finder.total_pages}}
+
+    guardian.ensure_can_see!(finder.first)
+    meta = {current_page: finder.current_page,
+            total_items: finder.total_count}
+    finder_serializer = ActiveModel::ArraySerializer.new(
+        finder, each_serializer: TrainingSerializer)
+    render json: {data: finder_serializer,
+                  meta: meta}
   end
 
   def show

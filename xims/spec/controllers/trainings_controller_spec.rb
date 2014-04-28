@@ -23,9 +23,11 @@ describe TrainingsController do
         it 'succeeds' do
           xhr :get, :index, organization_id: @organization.id, page: 1
           parsed = JSON(response.body)
+          puts parsed
           parsed['data'].length.should == 1
-          parsed['metadata']['page'].should == 1
-          parsed['metadata']['total_pages'].should == @total_trainings
+          parsed['data'][0].should have_key('training_type')
+          parsed['meta']['current_page'].should == 1
+          parsed['meta']['total_items'].should == @total_trainings
         end
       end
     end
@@ -46,7 +48,7 @@ describe TrainingsController do
           xhr :get, :show, training_id: @induction_training.id
           parsed = JSON(response.body)
           response.should be_success
-          parsed['topic'].should == 'company induction'
+          parsed['training']['topic'].should == 'company induction'
         end
       end
 
