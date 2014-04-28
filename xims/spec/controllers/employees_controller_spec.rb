@@ -118,6 +118,23 @@ describe EmployeesController do
         parsed = JSON(response.body)
         parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.utc.to_date
       end
+      it 'fails and returns the errors' do
+        xhr :put, :update, employee_id: luis_as_employee.id,
+            employee: {risk_insurance: {expiration_date: nil},
+                       medical_exam: {expiration_date: nil}}
+        response.should_not be_success
+        parsed = JSON(response.body)
+        parsed.should have_key('errors')
+      end
+      it 'succeeds when employee does not have risk_insurance either medical_exam' do
+        xhr :put, :update, employee_id: roger_as_employee.id,
+            employee: {risk_insurance: {expiration_date: expiration_date},
+                       medical_exam: {expiration_date: expiration_date}}
+        response.should be_success
+        parsed = JSON(response.body)
+        parsed['employee']['risk_insurance']['expiration_date'].to_date.should == expiration_date.utc.to_date
+        parsed['employee']['medical_exam']['expiration_date'].to_date.should == expiration_date.utc.to_date
+      end
     end
   end
 end

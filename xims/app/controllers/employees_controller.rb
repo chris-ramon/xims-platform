@@ -34,37 +34,40 @@ class EmployeesController < ApplicationController
     employee = Employee.where(id: params[:employee_id]).first
     guardian.ensure_can_see!(employee)
 
-    Employee.transaction do
-      risk_insurance = employee.risk_insurance
-      if risk_insurance.present? && risk_insurance_params.has_key?(:risk_insurance)
-        risk_insurance.expiration_date = risk_insurance_params['risk_insurance']['expiration_date'].to_datetime
-        unless risk_insurance.save
-          errors << employee.errors
-          raise ActiveRecord::Rollback.new
+    risk_insurance = employee.risk_insurance
+    if risk_insurance.present?
+      if params.require(:employee).has_key?(:risk_insurance)
+        unless risk_insurance.update(risk_insurance_params)
+          errors << {risk_insurance: risk_insurance.errors.full_messages}
         end
       end
+    else
+      RiskInsurance.create(risk_insurance_params.merge({employee_id: employee.id, active: true}))
+    end
 
-      medical_exam = employee.medical_exam
-      if medical_exam.present? && medical_exam_params.has_key?(:medical_exam)
-        medical_exam.expiration_date = medical_exam_params['medical_exam']['expiration_date'].to_datetime
-        unless medical_exam.save
-          errors << employee.errors
+    medical_exam = employee.medical_exam
+    if medical_exam.present?
+      if params.require(:employee).has_key?(:medical_exam)
+        unless medical_exam.update(medical_exam_params)
+          errors << {medical_exam: medical_exam.errors.full_messages}
         end
       end
+    else
+      MedicalExam.create(medical_exam_params.merge({employee_id: employee.id, active: true}))
     end
 
     if errors.empty?
       render json: employee
     else
-      render json: errors, status: :unprocessable_entity
+      render json: {errors: errors}, status: :unprocessable_entity
     end
   end
 
   private
     def risk_insurance_params
-      params.require(:employee).permit(risk_insurance: [:expiration_date])
+      params.require(:employee).require(:risk_insurance).permit(:expiration_date)
     end
     def medical_exam_params
-      params.require(:employee).permit(medical_exam: [:expiration_date])
+      params.require(:employee).require(:medical_exam).permit(:expiration_date)
     end
 end
