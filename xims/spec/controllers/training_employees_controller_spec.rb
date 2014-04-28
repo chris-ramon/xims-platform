@@ -71,6 +71,12 @@ describe TrainingEmployeesController do
           parsed['metadata']['page'].should == 2
           parsed['metadata']['total_pages'].should == 5
         end
+        it 'returns empty array when no records found' do
+          xhr :get, :index_trainings, employee_id: roger_as_employee.id
+          response.should be_success
+          parsed = JSON(response.body)
+          parsed['data'].length.should == 0
+        end
       end
       context 'logged user and employee DO NOT have same organization' do
         it 'fails' do
