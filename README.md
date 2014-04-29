@@ -1,4 +1,9 @@
 # XIMS PLATFORM
+This repo only contains the backend of the platform, which has only API's and
+do not render any html.
+
+To see the web client app see:
+[xims-web](https://github.com/chris-ramon/xims-web)
 
 ## About xims-platform
 xims-platform is a safety risk management software, that allows companies, smartly manage: incidents, corrective actions and trainings in order to make better decisions and reduce incidents and accidents.
