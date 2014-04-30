@@ -17,17 +17,24 @@ describe TrainingsController do
           xhr :get, :index, organization_id: @organization.id
           response.should be_success
         end
-      end
-
-      describe 'pagination' do
-        it 'succeeds' do
-          xhr :get, :index, organization_id: @organization.id, page: 1
-          parsed = JSON(response.body)
-          puts parsed
-          parsed['data'].length.should == 1
-          parsed['data'][0].should have_key('training_type')
-          parsed['meta']['current_page'].should == 1
-          parsed['meta']['total_items'].should == @total_trainings
+        describe 'pagination' do
+          it 'succeeds' do
+            xhr :get, :index, organization_id: @organization.id, page: 1
+            parsed = JSON(response.body)
+            puts parsed
+            parsed['data'].length.should == 1
+            parsed['data'][0].should have_key('training_type')
+            parsed['meta']['current_page'].should == 1
+            parsed['meta']['total_items'].should == @total_trainings
+          end
+        end
+        describe 'no training results' do
+          it 'returns empty array' do
+            xhr :get, :index, organization_id: 0
+            response.should be_success
+            parsed = JSON(response.body)
+            parsed['data'].length.should == 0
+          end
         end
       end
     end

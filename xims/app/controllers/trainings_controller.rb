@@ -8,7 +8,8 @@ class TrainingsController < ApplicationController
       .where(organization_id: params[:organization_id])
       .page(params[:page])
 
-    guardian.ensure_can_see!(finder.first)
+    guardian.ensure_can_see!(finder.first) if finder.present?
+
     meta = {current_page: finder.current_page,
             total_items: finder.total_count}
     finder_serializer = ActiveModel::ArraySerializer.new(
