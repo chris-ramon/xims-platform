@@ -21,7 +21,6 @@ describe TrainingsController do
           it 'succeeds' do
             xhr :get, :index, organization_id: @organization.id, page: 1
             parsed = JSON(response.body)
-            puts parsed
             parsed['data'].length.should == 1
             parsed['data'][0].should have_key('training_type')
             parsed['meta']['current_page'].should == 1
@@ -78,7 +77,7 @@ describe TrainingsController do
       let(:roger_as_employee) { create(:employee, organization: abc_organization) }
       let(:chris_as_user) { create(:user, employee: chris_as_employee) }
       let(:training_params) {
-        {training: {organization_id: abc_organization.id, responsible_id: 1,
+        {training: {responsible_id: 1,
                     trainer_id: 1, training_type: Training.types[:induction],
                     training_date: Time.now, training_hours: 2,
                     topic: 'some topic!',
