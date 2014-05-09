@@ -48,9 +48,10 @@ gem 'kaminari' #pagination
 gem 'devise' #auth
 gem 'active_model_serializers' #serialization
 gem 'searchkick' #search
-gem 'pg'
+gem 'pg' #postgresql
 gem 'rack-cors'
 gem 'factory_girl_rails'
+gem 'roo' # excel-parser
 
 group :development, :test do
   gem 'rspec-rails'
