@@ -8,6 +8,7 @@ class EmployeesController < ApplicationController
       .with_individual
       .where(organization_id: params[:organization_id])
       .page(params[:page])
+      .per(params[:per_page])
 
     guardian.ensure_can_see!(finder.first)
     meta = {current_page: finder.current_page,
