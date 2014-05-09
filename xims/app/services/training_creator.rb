@@ -19,6 +19,7 @@ class TrainingCreator
     @opts = opts || {}
     @employees_params = @opts.delete :employees
     @training = nil
+    @errors = []
   end
 
   def create
@@ -27,6 +28,7 @@ class TrainingCreator
       save_training
       save_employees
     end
+    @training
   end
 
   def setup_training
@@ -47,7 +49,7 @@ class TrainingCreator
         employee_id: employee[:id],
         observations: employee[:observations]})
       unless training_employee.save
-        @errors = training_employee.errors
+        @errors = {employees: training_employee.errors}
         raise ActiveRecord::Rollback.new
       end
     end

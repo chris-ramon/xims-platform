@@ -25,27 +25,25 @@ class TrainingsController < ApplicationController
   end
 
   def create
-    params = create_params
-
     organization = Organization.where(id: params[:organization_id]).first
     guardian.ensure_can_create!(Training, organization)
-    training_creator = TrainingCreator.new(current_user, params)
-    training_creator.create
+    training_creator = TrainingCreator.new(current_user, training_params)
+    training = training_creator.create
 
     if training_creator.errors.present?
-      render json: training_creator.errors
+      render json: training_creator.errors, status: :unprocessable_entity
     else
-      render json: success_json
+      render json: training
     end
   end
 
   private
-    def create_params
+    def training_params
       permitted = [
-          :organization_id,
           :responsible_id, :trainer_id, :training_type,
           :training_date, :training_hours, :topic,
           {employees: [:id, :observations]}]
-      params.require(:training).permit(*permitted)
+      training_params = params.require(:training).permit(*permitted)
+      training_params.merge({organization_id: params[:organization_id]})
     end
 end
