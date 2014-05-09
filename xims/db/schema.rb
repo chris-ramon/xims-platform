@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415031135) do
+ActiveRecord::Schema.define(version: 20140501194848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20140415031135) do
     t.string   "first_name",       null: false
     t.string   "middle_name"
     t.string   "last_name",        null: false
-    t.string   "second_last_name", null: false
+    t.string   "second_last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "age"
@@ -85,6 +85,20 @@ ActiveRecord::Schema.define(version: 20140415031135) do
     t.datetime "training_date",   null: false
     t.integer  "training_hours",  null: false
     t.string   "topic",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "uploads", force: true do |t|
+    t.string   "sha1",              limit: 40
+    t.string   "original_filename",            null: false
+    t.integer  "filesize",                     null: false
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "url",                          null: false
+    t.integer  "uploaded_by_id",               null: false
+    t.integer  "uploadable_id"
+    t.string   "uploadable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
