@@ -6,3 +6,4 @@ xims-platform.iml
 xims/xims.iml
 xims-app/xims-app.iml
 xims/lib/tasks/tests.log
+xims/public/uploads
