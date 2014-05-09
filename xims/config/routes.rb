@@ -18,6 +18,13 @@ Xims::Application.routes.draw do
 
   get '/search/employees', to: 'search#employees'
 
+  post '/uploads/', to: 'uploads#create'
+  get '/uploads/', to: 'uploads#index'
+  get '/uploads/:upload_id', to: 'uploads#show', constraints: {upload_id: /\d+/}
+
+  get '/data-importer/:upload_id', to: 'data_importer#show', constraints: {upload_id: /\d+/}
+  post '/data-importer/:upload_id', to: 'data_importer#create', constraints: {upload_id: /\d+/}
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
