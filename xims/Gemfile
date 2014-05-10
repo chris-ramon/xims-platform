@@ -52,6 +52,7 @@ gem 'pg' #postgresql
 gem 'rack-cors'
 gem 'factory_girl_rails'
 gem 'roo' # excel-parser
+gem 'similar_text'
 
 group :development, :test do
   gem 'rspec-rails'

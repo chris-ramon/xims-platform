@@ -145,6 +145,7 @@ GEM
     searchkick (0.5.3)
       tire
       tire-contrib
+    similar_text (0.0.4)
     spreadsheet (0.9.7)
       ruby-ole (>= 1.0)
     sprockets (2.10.1)
@@ -210,6 +211,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   searchkick
+  similar_text
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
