@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe DataImporterController do
-  let(:chris_as_user) { create(:user) }
+  let(:chris_as_user) { create(:user_with_employee) }
   let!(:user) { sign_in chris_as_user }
   let(:uploaded_file) { create(:upload, original_filename: 'a.xlsx',
                                url: "/samples/employees_to_import.xlsx") }
