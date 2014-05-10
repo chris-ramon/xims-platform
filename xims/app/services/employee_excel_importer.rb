@@ -3,7 +3,8 @@ require 'roo'
 class EmployeeExcelImporter
   attr_reader :employees
 
-  def initialize(file_path, current_page=1, default_per_page=nil)
+  def initialize(organization, file_path, current_page=1, default_per_page=nil)
+    @organization = organization
     @start_row = 2
     @file_path = file_path
     @default_per_page = default_per_page || Kaminari.config.default_per_page
@@ -15,6 +16,7 @@ class EmployeeExcelImporter
     @employees = []
     @total_items = nil
   end
+
   def import_data
     s = Roo::Excelx.new(@file_path)
     (@start_row..s.last_row).each do |line|
@@ -22,8 +24,8 @@ class EmployeeExcelImporter
       names = s.cell(line, 'B')
       last_names = s.cell(line, 'C')
       age = s.cell(line, 'D')
-      workspace = s.cell(line, 'E')
-      occupation = s.cell(line, 'F')
+      workspace_name = s.cell(line, 'E')
+      occupation_name = s.cell(line, 'F')
       company_years_of_experience = s.cell(line, 'G')
       gender = s.cell(line, 'H')
       occupation_turn = s.cell(line, 'I')
@@ -50,9 +52,35 @@ class EmployeeExcelImporter
         second_last_name = nil
       end
 
-      @employees << Individual.create(id_number: id_number, first_name: first_name,
+      individual = Individual.create(id_number: id_number, first_name: first_name,
                                       middle_name: middle_name,  last_name: last_name,
                                       second_last_name: second_last_name, age: age)
+
+      if "#{company_name}".similar("#{@organization.name}") > 75
+        organization = @organization
+      else
+        organization = Organization.where("lower(name) = ?", "#{company_name}".downcase).first
+      end
+
+      workspace = Workspace.where("lower(name) = ?", "#{workspace_name}".downcase).first
+      occupation = Workspace.where("lower(name) = ?", "#{occupation_name}".downcase).first
+
+      unless organization.present?
+        organization = Organization.create(name: company_name)
+      end
+
+      unless workspace.present?
+        workspace = Workspace.create(name: workspace_name)
+      end
+
+      unless occupation.present?
+        occupation = Occupation.create(name: occupation_name)
+      end
+
+      Employee.create(organization: organization, individual: individual,
+                      workspace: workspace, occupation: occupation)
+
+      @employees << individual
     end
     @employees
   end
