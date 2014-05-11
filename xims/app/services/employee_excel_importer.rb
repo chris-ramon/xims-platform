@@ -3,8 +3,8 @@ require 'roo'
 class EmployeeExcelImporter
   attr_reader :employees
 
-  def initialize(organization, file_path, current_page=1, default_per_page=nil)
-    @organization = organization
+  def initialize(user, file_path, current_page=1, default_per_page=nil)
+    @user = user
     @start_row = 2
     @file_path = file_path
     @default_per_page = default_per_page || Kaminari.config.default_per_page
@@ -56,8 +56,8 @@ class EmployeeExcelImporter
                                       middle_name: middle_name,  last_name: last_name,
                                       second_last_name: second_last_name, age: age)
 
-      if "#{company_name}".similar("#{@organization.name}") > 75
-        organization = @organization
+      if "#{company_name}".similar("#{@user.employee.organization.name}") > 75 #TODO: this number should come from app settings
+        organization = @user.employee.organization
       else
         organization = Organization.where("lower(name) = ?", "#{company_name}".downcase).first
       end
@@ -79,6 +79,11 @@ class EmployeeExcelImporter
 
       Employee.create(organization: organization, individual: individual,
                       workspace: workspace, occupation: occupation)
+
+      unless @user.employee.organization.id == organization.id
+        Outsourcing.where(outsourcer_id: @user.employee.organization.id,
+                          provider_id: organization.id).first_or_create
+      end
 
       @employees << individual
     end
