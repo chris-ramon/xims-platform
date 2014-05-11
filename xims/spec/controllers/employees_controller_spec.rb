@@ -14,13 +14,18 @@ describe EmployeesController do
       response.should_not be_success
     end
     context 'when logged in' do
+      let(:abc_total_employees) { 3 }
+      let(:abc_total_outsourced_employees) { 5 }
+      let(:abc_organization_provider) { create(:organization_with_employees, employees_count: abc_total_outsourced_employees) }
       let(:abc_organization) { create(:organization) }
+      let(:abc_outsourcing) { create(:outsourcing, outsourcer: abc_organization,
+                                     provider: abc_organization_provider) }
       let(:chris_as_employee) {create( :employee, organization: abc_organization) }
       let(:chris_as_user) { create(:user, employee: chris_as_employee) }
       let(:other_organization) { create(:organization) }
       let(:add_employees_to_other_organization) { 3.times { create(:employee, organization: other_organization) }  }
       before do
-        3.times { create(:employee, organization: abc_organization) }
+        abc_total_employees.times { create(:employee, organization: abc_organization) }
         sign_in chris_as_user
       end
       context 'when user do not belongs to the given organization' do
@@ -54,9 +59,12 @@ describe EmployeesController do
           parsed['data'][0].should have_key('second_last_name')
         end
         it 'paginates' do
+          abc_organization_provider
+          abc_outsourcing
           xhr :get, :index, organization_id: abc_organization.id, page: 3
           parsed = JSON(response.body)
-          parsed['meta']['total_items'].should == 4
+          total_items = abc_total_employees + 1 + abc_total_outsourced_employees #+1 counting the employee entity of the logged user
+          parsed['meta']['total_items'].should == total_items
           parsed['meta']['current_page'].should == 3
         end
       end

@@ -4,9 +4,13 @@ class EmployeesController < ApplicationController
   def index
     params.permit(:organization_id, :page)
 
+    providers = Outsourcing.where(outsourcer_id: params[:organization_id])
+      .pluck('provider_id')
+    organization_ids = [params[:organization_id]] + providers
+
     finder = Employee
       .with_individual
-      .where(organization_id: params[:organization_id])
+      .where(organization_id: organization_ids)
       .page(params[:page])
       .per(params[:per_page])
 
