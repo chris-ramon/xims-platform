@@ -33,7 +33,13 @@ class Guardian
   end
 
   def can_see_employee?(employee)
-    @user.employee.organization_id == employee.organization_id
+    outsourcing = Outsourcing.where(outsourcer_id: @user.employee.organization_id,
+                      provider_id: employee.organization_id).first
+    if outsourcing.present?
+      true
+    else
+      @user.employee.organization_id == employee.organization_id
+    end
   end
 
   def can_see_training?(training)

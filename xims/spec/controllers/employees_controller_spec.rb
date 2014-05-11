@@ -1,12 +1,17 @@
 require 'spec_helper'
 
 describe EmployeesController do
+  let(:abc_total_outsourced_employees) { 5 }
+  let(:abc_organization_provider) { create(:organization_with_employees, employees_count: abc_total_outsourced_employees) }
+  let(:abc_outsourcing) { create(:outsourcing, outsourcer: abc_organization,
+                                 provider: abc_organization_provider) }
   let(:abc_organization) { create(:organization) }
   let(:other_organization) { create(:organization) }
   let(:roger_as_employee) { create(:employee, organization: abc_organization) }
   let(:roger_as_user) { create(:user, employee: roger_as_employee) }
   let(:chris_as_employee) { create(:employee, organization: other_organization) }
   let(:luis_as_employee) { create(:employee_with_entities, organization: abc_organization) }
+  let(:jorge_as_employee) { create(:employee_with_entities, organization: abc_organization_provider) }
 
   describe 'index' do
     it "won't allow see the list of employees when user is not logged in" do
@@ -15,8 +20,6 @@ describe EmployeesController do
     end
     context 'when logged in' do
       let(:abc_total_employees) { 3 }
-      let(:abc_total_outsourced_employees) { 5 }
-      let(:abc_organization_provider) { create(:organization_with_employees, employees_count: abc_total_outsourced_employees) }
       let(:abc_organization) { create(:organization) }
       let(:abc_outsourcing) { create(:outsourcing, outsourcer: abc_organization,
                                      provider: abc_organization_provider) }
@@ -91,6 +94,14 @@ describe EmployeesController do
         it 'succeed' do
           xhr :get, :show, employee_id: luis_as_employee.id
           response.should be_success
+        end
+        context 'when requesting for provider employee' do
+          it 'succeeds' do
+            abc_organization_provider
+            abc_outsourcing
+            xhr :get, :show, employee_id: jorge_as_employee.id
+            response.should be_success
+          end
         end
       end
     end
